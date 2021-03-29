@@ -2,10 +2,10 @@
   "model_name": "AConvNet",
   "num_classes": 10,
   "batch_size": 100,
-  "epochs": 200,
+  "epochs": 500,
   "momentum": 0.9,
   "lr": 0.001,
-  "lr_step": [50, 100, 150],
+  "lr_step": [50, 150, 300],
   "lr_decay": 0.1,
   "weight_decay": 0.004
 }

@@ -11,7 +11,7 @@ class Network(nn.Module):
         self.dropout_rate = dropout_rate
 
         self.init_w = nn.init.kaiming_uniform_
-        self.init_b = nn.init.zeros_
+        self.init_b = nn.init.ones_
 
         self._layer = nn.Sequential(
             _blocks.Conv2DBlock(shape=[5, 5, 1, 16], stride=1, initializer=(self.init_w, self.init_b)),
@@ -27,16 +27,6 @@ class Network(nn.Module):
         )
 
         self._initialize()
-
-    def regularizer(self):
-        # Only Feature Extraction layers are regularized
-        _weight_norm = 0
-        for i, e in enumerate(self._layer):
-            if not hasattr(e, '_layer'):
-                continue
-
-            _weight_norm += e.regularizer()
-        return _weight_norm
 
     def forward(self, x):
         return self._layer(x)

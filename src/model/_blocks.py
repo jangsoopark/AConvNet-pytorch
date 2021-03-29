@@ -28,14 +28,6 @@ class BaseBlock(nn.Module):
             if hasattr(e, 'bias'):
                 init_b(self._layer[i].bias)
 
-    def regularizer(self):
-        _weight_norm = 0
-        for i, e in enumerate(self._layer):
-            if not hasattr(e, 'weight'):
-                continue
-            _weight_norm += torch.norm(e.weight, 2)
-        return _weight_norm
-
 
 class Conv2DBlock(BaseBlock):
 

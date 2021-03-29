@@ -22,7 +22,7 @@ class Model(object):
             self.net.parameters(),
             lr=self.lr,
             momentum=self.momentum,
-            # weight_decay=self.weight_decay
+            weight_decay=self.weight_decay
         )
 
         if self.lr_decay:
@@ -35,7 +35,7 @@ class Model(object):
     def optimize(self, x, y):
         p = self.net(x.to(self.device))
         loss = self.criterion(p, y.to(self.device))
-        loss += + self.weight_decay * self.net.regularizer()
+
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
