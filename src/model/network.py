@@ -11,7 +11,7 @@ class Network(nn.Module):
         self.dropout_rate = dropout_rate
 
         self._layer = nn.Sequential(
-            _blocks.Conv2DBlock(shape=[5, 5, 1, 16], stride=1),
+            _blocks.Conv2DBlock(shape=[5, 5, 2, 16], stride=1),
             _blocks.Conv2DBlock(shape=[5, 5, 16, 32], stride=1),
             _blocks.Conv2DBlock(shape=[6, 6, 32, 64], stride=1),
 

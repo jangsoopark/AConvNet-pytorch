@@ -30,9 +30,9 @@ def train(path):
             label, image = _mstar.read(data_path)
             num_patches = image.shape[0]
             label_list += [label for _ in range(num_patches)]
-            image_list.append(image[:, :, :, 0])
+            image_list.append(image)
 
-        image_list = np.asarray(image_list).reshape(-1, patch_size, patch_size, 1)
+        image_list = np.asarray(image_list).reshape(-1, patch_size, patch_size, 2)
         np.save(os.path.join(train_root, f'{c}-label.npy'), label_list)
         np.save(os.path.join(train_root, f'{c}-image.npy'), image_list)
 
@@ -59,9 +59,9 @@ def test(path):
 
             label, image = _mstar.read(data_path)
             label_list.append(label)
-            image_list.append(image[:, :, 0])
+            image_list.append(image)
 
-        image_list = np.asarray(image_list).reshape(-1, patch_size, patch_size, 1)
+        image_list = np.asarray(image_list).reshape(-1, patch_size, patch_size, 2)
         np.save(os.path.join(train_root, f'{c}-label.npy'), label_list)
         np.save(os.path.join(train_root, f'{c}-image.npy'), image_list)
 

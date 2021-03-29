@@ -67,5 +67,5 @@ if __name__ == '__main__':
         fig = plt.figure(figsize=(8, 8))
         fig.suptitle(f'{mstar.classes_name[label[0, 0]]}, angle: {label[0, 1]}')
         fig.add_subplot(1, 1, 1)
-        plt.imshow(image[0, 0, :, :])
+        plt.imshow(image[0, 0, :, :], cmap='gray')
         plt.show()
