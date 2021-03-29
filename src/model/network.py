@@ -10,13 +10,10 @@ class Network(nn.Module):
         super(Network, self).__init__()
         self.dropout_rate = dropout_rate
 
-        self.init_w = nn.init.kaiming_uniform_
-        self.init_b = nn.init.ones_
-
         self._layer = nn.Sequential(
-            _blocks.Conv2DBlock(shape=[5, 5, 1, 16], stride=1, initializer=(self.init_w, self.init_b)),
-            _blocks.Conv2DBlock(shape=[5, 5, 16, 32], stride=1, initializer=(self.init_w, self.init_b)),
-            _blocks.Conv2DBlock(shape=[6, 6, 32, 64], stride=1, initializer=(self.init_w, self.init_b)),
+            _blocks.Conv2DBlock(shape=[5, 5, 1, 16], stride=1),
+            _blocks.Conv2DBlock(shape=[5, 5, 16, 32], stride=1),
+            _blocks.Conv2DBlock(shape=[6, 6, 32, 64], stride=1),
 
             nn.Conv2d(64, 128, kernel_size=(5, 5), stride=(1, 1)),
             nn.ReLU(inplace=True),
@@ -26,17 +23,5 @@ class Network(nn.Module):
             nn.Flatten(),
         )
 
-        self._initialize()
-
     def forward(self, x):
         return self._layer(x)
-
-    def _initialize(self):
-
-        for i, e in enumerate(self._layer):
-            if hasattr(e, '_layer'):
-                continue
-            if hasattr(e, 'weight'):
-                self.init_w(self._layer[i].weight, nonlinearity='relu')
-            if hasattr(e, 'bias'):
-                self.init_b(self._layer[i].bias)
