@@ -128,5 +128,6 @@ In this experiments, we achiveve tha accuracy 99.01% at epoch 42.
   volume={54},
   number={8},
   pages={4806-4817},
-  doi={10.1109/TGRS.2016.2551720}}
+  doi={10.1109/TGRS.2016.2551720}
+}
 ```
