@@ -115,3 +115,18 @@ TODO
 | Memory | 16 GB |
 | SSD | 500GB |
 | HDD | 2TB |
+
+
+### Citation
+
+```
+@ARTICLE{7460942,
+  author={S. {Chen} and H. {Wang} and F. {Xu} and Y. {Jin}},
+  journal={IEEE Transactions on Geoscience and Remote Sensing}, 
+  title={Target Classification Using the Deep Convolutional Networks for SAR Images}, 
+  year={2016},
+  volume={54},
+  number={8},
+  pages={4806-4817},
+  doi={10.1109/TGRS.2016.2551720}}
+```
