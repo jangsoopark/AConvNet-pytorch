@@ -7,6 +7,8 @@ from tqdm import tqdm
 import torchvision.transforms as transforms
 
 import numpy as np
+
+import shutil
 import torch
 import json
 import os
@@ -19,7 +21,6 @@ import utils
 flags.DEFINE_string('experiments_path', os.path.join(utils.project_root, '../experiments'), help='')
 flags.DEFINE_string('data_path', os.path.join(utils.project_root, '../dataset'), help='')
 flags.DEFINE_string('config_name', 'AConvNet.json', help='')
-flags.DEFINE_integer('epoch', 42, help='')
 FLAGS = flags.FLAGS
 
 logging.set_verbosity(logging.INFO)
@@ -62,25 +63,38 @@ def run(batch_size, num_classes, model_path=None):
 
     accuracy = 100 * corrects / num_data
     logging.info(f'Accuracy : {accuracy}%')
+    return accuracy
 
 
 def main(_):
     # Flags
     experiments_path = FLAGS.experiments_path
     config_name = FLAGS.config_name
-    epoch = FLAGS.epoch
 
     # load configurations
     config = utils.load_config(os.path.join(experiments_path, config_name))
     model_name = config['model_name']
     num_classes = config['num_classes']
+    epochs = config['epochs']
     batch_size = 1  # config['batch_size']
 
     # initialize experimental path
     if not os.path.exists(os.path.join(experiments_path, model_name)):
         os.makedirs(os.path.join(experiments_path, model_name), exist_ok=True)
 
-    run(batch_size, num_classes, os.path.join(experiments_path, model_name, f'model-{epoch:03d}.pth'))
+    best = {
+        'accuracy': 0,
+        'epoch': 0
+    }
+    for epoch in range(1, epochs + 1):
+        accuracy = run(batch_size, num_classes, os.path.join(experiments_path, model_name, f'model-{epoch:03d}.pth'))
+        best = max([best, {'accuracy': accuracy, 'epoch': epoch}], key=lambda x: x['accuracy'])
+
+    logging.info(f'Best accuracy[{best["accuracy"]}%] is achieved at {best["epoch"]}')
+    shutil.copy(
+        os.path.join(experiments_path, model_name, f'model-{best["epoch"]:03d}.pth'),
+        os.path.join(experiments_path, model_name, f'model-best.pth'),
+    )
 
 
 if __name__ == '__main__':

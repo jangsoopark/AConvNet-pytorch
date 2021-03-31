@@ -112,7 +112,7 @@ if __name__ == '__main__':
         if _mstar.is_train:
             for i in range(_image.shape[0]):
                 fig = plt.figure(figsize=(8, 4))
-                fig.suptitle(f'{classes_name[label["class_id"]]}, angle: {label["azimuth_angle"]}')
+                fig.suptitle(f'{classes_name[label["class_id"]]}')  # , angle: {label["azimuth_angle"]}')
                 fig.add_subplot(1, 2, 1)
                 plt.imshow(_image[i, :, :, 0], cmap='gray')
                 fig.add_subplot(1, 2, 2)

@@ -18,7 +18,7 @@ import utils
 
 flags.DEFINE_string('experiments_path', os.path.join(utils.project_root, '../experiments'), help='')
 flags.DEFINE_string('data_path', os.path.join(utils.project_root, '../dataset'), help='')
-flags.DEFINE_string('config_name', 'AConvNet.json', help='')
+flags.DEFINE_string('config_name', 'AConvNet-1.json', help='')
 FLAGS = flags.FLAGS
 
 logging.set_verbosity(logging.INFO)
