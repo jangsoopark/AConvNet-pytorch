@@ -117,6 +117,7 @@ In this experiments, the trained model shows an accuracy 99.01% at epoch 42.
 > 
 > Where C is confusion matrix and I is identity matrix
 
+<!-- TODO : reinforce more analytical explanation
 #### Error Analysis
 
 False Positive of BMP-2
@@ -150,7 +151,7 @@ False Positive of T-72
 False Positive of ZIL-131
 
 ![FP-ZIL-131](assets/figure/011.png)
-
+-->
 
 #### Outlier Rejection
 
