@@ -153,8 +153,18 @@ False Positive of ZIL-131
 ![FP-ZIL-131](assets/figure/011.png)
 -->
 
-#### Outlier Rejection
+#### Confuser Rejection
+Training Target: BMP-2, BTR-70, T-72
 
+Confuser Target: 2S1, ZIL-131
+
+- Confuser Rejection Rules
+  - If all the posterior prob. are lower than threshold(\tau_th), the target image will be declared as a confser.
+  - Detection Ratio(P_d) = (# known targets detected) / (# known targets in the test set) 
+  - False Alarm Ratio(P_fa) =  (# confusers declared as known) / (# confusers in the test set)
+    
+![](assets/figure/confuser-rejection.png)
+    
 > TODO
 
 ### Details about the Specific environment of this repository
@@ -181,4 +191,4 @@ False Positive of ZIL-131
   pages={4806-4817},
   doi={10.1109/TGRS.2016.2551720}
 }
-```
+``` 

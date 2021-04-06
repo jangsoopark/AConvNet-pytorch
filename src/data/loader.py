@@ -48,6 +48,45 @@ class DataSet(torch.utils.data.Dataset):
         self.labels = np.vstack(self.labels)
 
 
+class ConfuserRejectionSet(DataSet):
+
+    def __init__(self, path, is_train=False, transform=None):
+        self.known_target = ['BMP-2', 'BTR-70', 'T-72']
+        self.confuser_target = ['2S1', 'ZIL-131']
+        self.num_known = 0
+        self.num_confuser = 0
+        super().__init__(path, is_train, transform)
+
+    def _load_data(self, path):
+        mode = 'train' if self.is_train else 'test'
+        targets = self.known_target + self.confuser_target if mode == 'test' else self.known_target
+        image_list = []
+        label_list = []
+        is_known = []
+        for t in targets:
+            image_list += glob.glob(os.path.join(path, f'{mode}/{t}-image.npy'))
+            label_list += glob.glob(os.path.join(path, f'{mode}/{t}-label.npy'))
+
+            if t in self.known_target:
+                is_known.append(True)
+            else:
+                is_known.append(False)
+
+        _class_id_map = [1, 4, 7, 0, 8]
+        for image_path, label_path, k in tqdm.tqdm(zip(image_list, label_list, is_known), desc=f'load {mode} data set'):
+            self.images.append(np.load(image_path))
+
+            _label = np.load(label_path, allow_pickle=True)
+            self.labels.append(np.array([(_class_id_map.index(e['class_id']), e['azimuth_angle']) for e in _label]))
+            if k:
+                self.num_known += _label.shape[0]
+            else:
+                self.num_confuser += _label.shape[0]
+
+        self.images = np.vstack(self.images)
+        self.labels = np.vstack(self.labels)
+
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import torchvision.transforms as transforms
