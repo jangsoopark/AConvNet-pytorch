@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
 
 import numpy as np
+import shutil
 import torch
 import json
 import os
@@ -98,20 +99,71 @@ def training(epochs, experiments_path, lr, m, model_name, training_set):
             lr = m.lr_scheduler.get_last_lr()[0]
             m.lr_scheduler.step()
 
-        # logging and save the model
-        logging.info(f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | ')
-
         hist['loss'].append(np.mean(_loss))
 
         if experiments_path:
             m.save(os.path.join(experiments_path, model_name, f'model-{epoch + 1:03d}.pth'))
+
+        acc = validation(1, 3, os.path.join(experiments_path, model_name, f'model-{epoch + 1:03d}.pth'))
+        # logging and save the model
+        logging.info(f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | accuracy={acc}')
+
     return hist
+
+
+@torch.no_grad()
+def validation(batch_size, num_classes, model_path=None):
+    # Data set
+    test_set, num_known, num_confuser = load_data(FLAGS.data_path, is_train=False, batch_size=batch_size)
+
+    # Model
+    m = model.Model(classes=num_classes)
+    m.load(model_path)
+
+    num_data = 0
+    corrects = 0
+    # Test loop
+    m.net.eval()
+    for i, data in enumerate(tqdm(test_set)):
+        images, labels = data
+        if labels[:, 0].item() > 3:
+            continue
+
+        predictions = m.inference(images)
+
+        _, predictions = torch.max(predictions.data, 1)
+        labels = labels.type(torch.LongTensor)
+
+        num_data += labels.size(0)
+        corrects += (predictions == labels[:, 0].to(m.device)).sum().item()
+
+    accuracy = 100 * corrects / num_data
+    logging.info(f'Accuracy : {accuracy}%')
+    return accuracy
+
+
+@torch.no_grad()
+def early_stop(epochs, batch_size, num_classes, model_name, experiments_path=None):
+    best = {
+        'accuracy': 0,
+        'epoch': 0
+    }
+    for epoch in range(1, epochs + 1):
+        accuracy = validation(batch_size, num_classes,
+                              os.path.join(experiments_path, model_name, f'model-{epoch:03d}.pth'))
+        best = max([best, {'accuracy': accuracy, 'epoch': epoch}], key=lambda x: x['accuracy'])
+
+    logging.info(f'Best accuracy[{best["accuracy"]}%] is achieved at {best["epoch"]}')
+    shutil.copy(
+        os.path.join(experiments_path, model_name, f'model-{best["epoch"]:03d}.pth'),
+        os.path.join(experiments_path, model_name, f'model-best.pth'),
+    )
 
 
 def run_training(epochs, batch_size, momentum, lr, lr_step, lr_decay, weight_decay, num_classes, model_name,
                  experiments_path=None):
     # Data set
-    training_set = load_data(FLAGS.data_path, is_train=True, batch_size=batch_size)
+    training_set, num_known, num_confuser = load_data(FLAGS.data_path, is_train=True, batch_size=batch_size)
 
     # Model
     m = model.Model(
@@ -149,8 +201,9 @@ def main(_):
         os.makedirs(os.path.join(experiments_path, model_name), exist_ok=True)
         run_training(epochs, batch_size, momentum, lr, lr_step, lr_decay, weight_decay,
                      num_classes, model_name, experiments_path)
+        early_stop(epochs, 1, num_classes, model_name, experiments_path)
 
-    confuser_rejection(num_classes, os.path.join(experiments_path, model_name, f'model-{epochs:03d}.pth'))
+    confuser_rejection(num_classes, os.path.join(experiments_path, model_name, f'model-best.pth'))
 
 
 if __name__ == '__main__':
