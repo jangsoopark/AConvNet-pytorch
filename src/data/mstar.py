@@ -28,6 +28,7 @@ class MSTAR(object):
 
         _data = _data.reshape(-1, h, w)
         _data = _data.transpose(1, 2, 0)
+        _data = _data.astype(np.float32)
 
         _data = self._center_crop(_data)
 

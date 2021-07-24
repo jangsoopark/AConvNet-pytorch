@@ -13,7 +13,7 @@ import mstar
 
 flags.DEFINE_string('image_root', default='dataset', help='')
 flags.DEFINE_string('dataset', default='soc', help='')
-flags.DEFINE_boolean('is_train', default=False, help='')
+flags.DEFINE_boolean('is_train', default=True, help='')
 FLAGS = flags.FLAGS
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
