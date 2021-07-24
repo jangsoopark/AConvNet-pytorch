@@ -285,6 +285,7 @@ dataset/soc/raw/test/
 
 dataset/soc/train/
 dataset/soc/test/
+experiments/history
 
 *.pth
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm+all,python
