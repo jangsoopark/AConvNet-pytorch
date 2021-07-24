@@ -25,7 +25,7 @@ def generate(src_path, dst_path, is_train, use_phase):
         os.makedirs(dst_path, exist_ok=True)
     print(f'Target Name: {os.path.basename(dst_path)}')
 
-    _mstar = mstar.MSTAR(is_train=is_train, use_phase=use_phase, patch_size=96, stride=4)
+    _mstar = mstar.MSTAR(is_train=is_train, use_phase=use_phase, patch_size=96, stride=2)
 
     image_list = glob.glob(os.path.join(src_path, '*'))
 
