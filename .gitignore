@@ -280,11 +280,13 @@ $RECYCLE.BIN/
 *.lnk
 
 # asdf
-dataset/raw/train/*
-dataset/raw/test/*
+dataset/soc/raw/train/
+dataset/soc/raw/test/
 
-dataset/train/*
-dataset/test/*
+dataset/soc/train/
+dataset/soc/test/
 
 *.pth
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm+all,python
+
+

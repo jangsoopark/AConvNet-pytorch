@@ -2,35 +2,8 @@
 
 ### Target Classification Using the Deep Convolutional Networks for SAR Images
 
-
-
-## TODO: Renewer
-
-- [ ] Implementation
-  - [ ] Data generation
-    - [ ] SOC
-    - [ ] EOC
-    - [ ] Outlier Rejection
-    - [ ] End-to-End SAR-ATR
-  - [ ] Data Loader
-    - [ ] SOC
-    - [ ] EOC
-    - [ ] Outlier Rejection
-    - [ ] End-to-End SAR-ATR
-  - [ ] Model
-    - [ ] Network
-    - [ ] Training
-    - [ ] Early Stopping
-    - [ ] Hyper-parameter Optimization
-  - [ ] Experiments
-    - [ ] Reproduce the SOC Results
-      - [ ] 1 channel input (Magnitude only)
-      - [ ] 2 channel input (Magnitude + Phase)
-    - [ ] Reproduce the EOC Results
-    - [ ] Reproduce the outlier rejection
-    - [ ] Reproduce the end-to-end SAR-ATR
-
-
+This repository is reproduced-implementation of AConvNet which recognize target from MSTAR dataset.
+You can see the official implementation of the author at [MSTAR-AConvNet](https://github.com/fudanxu/MSTAR-AConvNet).
 
 ## Dataset
 
@@ -38,21 +11,18 @@
 
 #### Format
 
-- Header 
-  - Type: ASCII
-  - Including data shape(width, height), serial number, azimuth angle, etc.
-- Data 
-  - Type: Two-bytes
-  - Shape: W x H x 2
-    - Magnitude block 
-    - Phase Block
+- Header
+    - Type: ASCII
+    - Including data shape(width, height), serial number, azimuth angle, etc.
+- Data
+    - Type: Two-bytes
+    - Shape: W x H x 2
+        - Magnitude block
+        - Phase Block
 
 Below figure is the example of magnitude block(Left) and phase block(Right)
 
 ![Example of data block: 2S1](./assets/figure/001.png)
-
-
-
 
 ## Model
 
@@ -68,8 +38,6 @@ The proposed model only consists of **sparsely connected layers** without any fu
 |   dropout   | -      |     -      |     -      |     -      |  0.5   |    -    |
 | activation  | linear |    ReLU    |    ReLU    |    ReLU    |  ReLU  | Softmax |
 
-
-
 ## Training
 
 - [ ] Data Augmentation
@@ -79,19 +47,15 @@ The proposed model only consists of **sparsely connected layers** without any fu
 - [ ] Learning Rate
 - [ ] Early Stopping
 
-
-
 ## Experiments
-
-
-
 
 ### Standard Operating Condition (SOC)
 
 You can download from [MSTAR Overview](https://www.sdms.afrl.af.mil/index.php?collection=mstar)
 
 - MSTAR Target Chips (T72 BMP2 BTR70 SLICY) which is **MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY.zip**
-- MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **MSTAR-PublicMixedTargets-CD2.zip**
+- MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **
+  MSTAR-PublicMixedTargets-CD2.zip**
 - **SLICY target is ignored**
 
 |         |            | Train      |            | Test       |            |
@@ -159,9 +123,10 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 ```
 
 ### Extended Operating Conditions (EOC)
-### Outlier Rejection
-### End-to-End SAR-ATR Cases
 
+### Outlier Rejection
+
+### End-to-End SAR-ATR Cases
 
 ## Citation
 
@@ -177,3 +142,30 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
   doi={10.1109/TGRS.2016.2551720}
 }
 ```
+
+## TODO
+
+- [ ] Implementation
+    - [ ] Data generation
+        - [ ] SOC
+        - [ ] EOC
+        - [ ] Outlier Rejection
+        - [ ] End-to-End SAR-ATR
+    - [ ] Data Loader
+        - [ ] SOC
+        - [ ] EOC
+        - [ ] Outlier Rejection
+        - [ ] End-to-End SAR-ATR
+    - [ ] Model
+        - [ ] Network
+        - [ ] Training
+        - [ ] Early Stopping
+        - [ ] Hyper-parameter Optimization
+    - [ ] Experiments
+        - [ ] Reproduce the SOC Results
+            - [ ] 1 channel input (Magnitude only)
+            - [ ] 2 channel input (Magnitude + Phase)
+        - [ ] Reproduce the EOC Results
+        - [ ] Reproduce the outlier rejection
+        - [ ] Reproduce the end-to-end SAR-ATR
+

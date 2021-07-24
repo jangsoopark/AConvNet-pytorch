@@ -1,16 +1,11 @@
 import numpy as np
-import random
 import torch
 
+import random
 import json
 import os
 
-project_root = os.path.abspath(os.path.dirname(__file__))
-
-
-def load_config(path):
-    with open(path, mode='r', encoding='utf-8') as f:
-        return json.load(f)
+project_root = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
 def set_random_seed(random_seed):
@@ -23,3 +18,8 @@ def set_random_seed(random_seed):
 
     np.random.seed(random_seed)
     random.seed(random_seed)
+
+
+def load_config(path):
+    with open(path, mode='r', encoding='utf-8') as f:
+        return json.load(f)
