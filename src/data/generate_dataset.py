@@ -14,17 +14,18 @@ import mstar
 flags.DEFINE_string('image_root', default='dataset', help='')
 flags.DEFINE_string('dataset', default='soc', help='')
 flags.DEFINE_boolean('is_train', default=True, help='')
+flags.DEFINE_boolean('use_phase', default=False, help='')
 FLAGS = flags.FLAGS
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-def generate(src_path, dst_path, is_train):
+def generate(src_path, dst_path, is_train, use_phase):
     if not os.path.exists(dst_path):
         os.makedirs(dst_path, exist_ok=True)
     print(f'Target Name: {os.path.basename(dst_path)}')
 
-    _mstar = mstar.MSTAR(is_train=is_train, patch_size=96, stride=4)
+    _mstar = mstar.MSTAR(is_train=is_train, use_phase=use_phase, patch_size=96, stride=4)
 
     image_list = glob.glob(os.path.join(src_path, '*'))
 
@@ -51,7 +52,7 @@ def main(_):
         (
             os.path.join(raw_root, mode, target),
             os.path.join(output_root, target),
-            FLAGS.is_train
+            FLAGS.is_train, FLAGS.use_phase
         ) for target in mstar.target_name
     ]
 

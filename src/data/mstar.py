@@ -12,8 +12,9 @@ serial_number = ('b01', '9563', 'E-71', 'k10yt7532', 'c71', '92v13015', 'A51', '
 
 class MSTAR(object):
 
-    def __init__(self, is_train=False, patch_size=88, stride=40):
+    def __init__(self, is_train=False, use_phase=False, patch_size=88, stride=40):
         self.is_train = is_train
+        self.use_phase = use_phase
         self.patch_size = patch_size
         self.stride = stride
 
@@ -29,6 +30,8 @@ class MSTAR(object):
         _data = _data.reshape(-1, h, w)
         _data = _data.transpose(1, 2, 0)
         _data = _data.astype(np.float32)
+        if not self.use_phase:
+            _data = np.expand_dims(_data[:, :, 0], axis=2)
 
         _data = self._center_crop(_data)
 
