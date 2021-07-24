@@ -49,38 +49,18 @@ def validation(m, ds):
 
     # Test loop
     m.net.eval()
+    _softmax = torch.nn.Softmax(dim=1)
     for i, data in enumerate(tqdm(ds)):
         images, labels = data
 
         predictions = m.inference(images)
+        predictions = _softmax(predictions)
 
         _, predictions = torch.max(predictions.data, 1)
         labels = labels.type(torch.LongTensor)
         num_data += labels.size(0)
         corrects += (predictions == labels.to(m.device)).sum().item()
 
-    accuracy = 100 * corrects / num_data
-    return accuracy
-
-
-@torch.no_grad()
-def validation2(m, test_set):
-    num_data = 0
-    corrects = 0
-    # Test loop
-    m.net.eval()
-    for i, data in enumerate(tqdm(test_set)):
-        images, labels = data
-
-        predictions = m.inference(images)
-
-        _, predictions = torch.max(predictions.data, 1)
-        labels = labels.type(torch.LongTensor)
-
-        num_data += labels.size(0)
-        corrects += (predictions == labels[:, 0].to(m.device)).sum().item()
-
-    m.net.train()
     accuracy = 100 * corrects / num_data
     return accuracy
 
