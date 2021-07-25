@@ -24,13 +24,13 @@ flags.DEFINE_string('experiments_path', os.path.join(common.project_root, 'exper
 flags.DEFINE_string('config_name', 'config/AConvNet-SOC.json', help='')
 FLAGS = flags.FLAGS
 
-common.set_random_seed(777)
+common.set_random_seed(12321)
 
 
 def load_dataset(path, is_train, name, batch_size):
-    _transform = [preprocess.CenterCrop(88), preprocess.ToTensor()]
-    if is_train:
-        _transform = [preprocess.RandomCrop(88), preprocess.ToTensor()]
+    _transform = [torchvision.transforms.ToTensor()] # [preprocess.CenterCrop(88), torchvision.transforms.ToTensor()]
+    # if is_train:
+    #     _transform = [preprocess.RandomCrop(88), torchvision.transforms.ToTensor()]
 
     _dataset = loader.Dataset(
         path, name=name, is_train=is_train,

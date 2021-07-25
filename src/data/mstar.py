@@ -33,6 +33,7 @@ class MSTAR(object):
         if not self.use_phase:
             _data = np.expand_dims(_data[:, :, 0], axis=2)
 
+        # _data = self._normalize(_data)
         _data = self._center_crop(_data)
 
         if self.is_train:
@@ -41,7 +42,6 @@ class MSTAR(object):
             _data = [self._center_crop(_data, size=self.patch_size)]
 
         meta_label = self._extract_meta_label(_header)
-        # _data = [d.astype(np.float32) for d in _data]
         return meta_label, _data
 
     @staticmethod
@@ -77,7 +77,7 @@ class MSTAR(object):
     @staticmethod
     def _data_augmentation(data, patch_size=88, stride=40):
         # patch extraction
-        _data = MSTAR._center_crop(data, size=128)
+        _data = MSTAR._center_crop(data, size=94)
         _, _, channels = _data.shape
         patches = shape.view_as_windows(_data, window_shape=(patch_size, patch_size, channels), step=stride)
         patches = patches.reshape(-1, patch_size, patch_size, channels)
