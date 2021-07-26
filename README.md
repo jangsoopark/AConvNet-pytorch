@@ -41,31 +41,28 @@ The proposed model only consists of **sparsely connected layers** without any fu
 ## Training
 For training, this implementation fixes the random seed to `12321` for `reproducibility`.
 
-- [x] Data Augmentation
-- [ ] Back-propagation
-- [ ] Mini batch Stochastic Gradient Descent with Momentum
-- [ ] Weight Initialization
-- [ ] Learning Rate
-- [ ] Early Stopping
-
+The experimental conditions are same as in the paper, except for `data augmentation` and `learning rate`. 
+The `learning rate` is initialized with `1e-3` and decreased by a factor of 0.1 **after 26 epochs**.
+You can see the details in `src/model/_base.py` and `experiments/config/AConvNet-SOC.json`
 
 ### Data Augmentation
-Source code is `src/data/generate_dataset.py` and `src/data/mstar.py` 
+ 
 - The author uses random shifting to extract 88 x 88 patches from 128 x 128 SAR image chips.
     - The number of training images per one SAR image chip could be increased at maximum by (128 - 88 + 1) x (128 - 88 + 1) = 1681.
 
 - However, for SOC, this repository does not use random shifting tue to accuracy issue.
+    - You can see the details in `src/data/generate_dataset.py` and `src/data/mstar.py`
     - This implementation failed to achieve higher than 98% accuracy when using random sampling.
     - The implementation details for data augmentation is as: 
-        - Crop the center of 94 x 94 size image on 128 x 128 SAR image chip.
+        - Crop the center of 94 x 94 size image on 128 x 128 SAR image chip (49 patches per image chip).
         - Extract 88 x 88 patches with stride 1 from 94 x 94 image.
     
 
 ## Experiments
 
-### Standard Operating Condition (SOC)
+You can download the MSTAR Dataset from [MSTAR Overview](https://www.sdms.afrl.af.mil/index.php?collection=mstar)
 
-You can download from [MSTAR Overview](https://www.sdms.afrl.af.mil/index.php?collection=mstar)
+### Standard Operating Condition (SOC)
 
 - MSTAR Target Chips (T72 BMP2 BTR70 SLICY) which is **MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY.zip**
 - MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **MSTAR-PublicMixedTargets-CD2.zip**
@@ -135,6 +132,18 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 
 ```
 
+#### Results of SOC
+- You can see the details in `notebook/experiments-SOC.ipynb`
+
+- Visualization of training loss and test accuracy
+
+![soc-training-plot](./assets/figure/soc-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 28**
+
+![soc-confusion-matrix](./assets/figure/soc-confusion-matrix.png)
+
+
 ### Extended Operating Conditions (EOC)
 
 ### Outlier Rejection
@@ -156,28 +165,28 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 }
 ```
 
+---
+
 ## TODO
 
 - [ ] Implementation
     - [ ] Data generation
-        - [ ] SOC
+        - [X] SOC
         - [ ] EOC
         - [ ] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [ ] Data Loader
-        - [ ] SOC
+        - [X] SOC
         - [ ] EOC
         - [ ] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [ ] Model
-        - [ ] Network
-        - [ ] Training
-        - [ ] Early Stopping
-        - [ ] Hyper-parameter Optimization
+        - [X] Network
+        - [X] Training
+        - [X] Early Stopping
+        - [X] Hyper-parameter Optimization
     - [ ] Experiments
-        - [ ] Reproduce the SOC Results
-            - [ ] 1 channel input (Magnitude only)
-            - [ ] 2 channel input (Magnitude + Phase)
+        - [X] Reproduce the SOC Results
         - [ ] Reproduce the EOC Results
         - [ ] Reproduce the outlier rejection
         - [ ] Reproduce the end-to-end SAR-ATR

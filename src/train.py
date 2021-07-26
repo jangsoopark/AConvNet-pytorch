@@ -9,13 +9,11 @@ from torch.utils import tensorboard
 import torchvision
 import torch
 
-from skimage import metrics
 import numpy as np
 
 import json
 import os
 
-from data import preprocess
 from data import loader
 from utils import common
 import model
