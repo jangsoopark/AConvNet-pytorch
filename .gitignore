@@ -288,6 +288,7 @@ dataset/soc/test/
 experiments/history
 
 *.pth
+*.zip
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm+all,python
 
 

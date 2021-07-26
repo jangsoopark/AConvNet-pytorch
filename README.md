@@ -131,8 +131,22 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 └ ...
 
 ```
+#### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True
+$ python3 generate_dataset.py --is_train=False --use_phase=True
+$ cd ..
+$ python3 train.py
+```
 
 #### Results of SOC
+- Final Accuracy is **99.18%**
 - You can see the details in `notebook/experiments-SOC.ipynb`
 
 - Visualization of training loss and test accuracy
@@ -142,7 +156,6 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 - Confusion Matrix with best model at **epoch 28**
 
 ![soc-confusion-matrix](./assets/figure/soc-confusion-matrix.png)
-
 
 ### Extended Operating Conditions (EOC)
 
