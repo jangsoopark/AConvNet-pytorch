@@ -146,7 +146,7 @@ $ python3 train.py
 ```
 
 #### Results of SOC
-- Final Accuracy is **99.18%**
+- Final Accuracy is **99.18%** (The official accuracy is 99.13%)
 - You can see the details in `notebook/experiments-SOC.ipynb`
 
 - Visualization of training loss and test accuracy
@@ -156,6 +156,15 @@ $ python3 train.py
 - Confusion Matrix with best model at **epoch 28**
 
 ![soc-confusion-matrix](./assets/figure/soc-confusion-matrix.png)
+
+- Noise Simulation [1]
+    - i.i.d samples from a uniform distribution
+
+| Noise | 1% | 5% | 10% | 15%|
+| :---: | :---: | :---: | :---: | :---: |
+| AConvNet-PyTorch | 98.56 | 94.39 | 85.03 | 73.65 |
+| AConvNet-Official | 91.76 | 88.52 | 75.84 | 54.68 |
+
 
 ### Extended Operating Conditions (EOC)
 
@@ -188,6 +197,12 @@ $ python3 train.py
   doi={10.1109/TGRS.2016.2551720}
 }
 ```
+
+## References
+[1] G. Dong, N. Wang, and G. Kuang, 
+"Sparse representation of monogenic signal: With application to target recognition in SAR images,"
+*IEEE Signal Process. Lett.*, vol. 21, no. 8, pp. 952-956, Aug. 2014.
+
 
 ---
 
