@@ -39,13 +39,27 @@ The proposed model only consists of **sparsely connected layers** without any fu
 | activation  | linear |    ReLU    |    ReLU    |    ReLU    |  ReLU  | Softmax |
 
 ## Training
+For training, this implementation fixes the random seed to `12321` for `reproducibility`.
 
-- [ ] Data Augmentation
+- [x] Data Augmentation
 - [ ] Back-propagation
 - [ ] Mini batch Stochastic Gradient Descent with Momentum
 - [ ] Weight Initialization
 - [ ] Learning Rate
 - [ ] Early Stopping
+
+
+### Data Augmentation
+Source code is `src/data/generate_dataset.py` and `src/data/mstar.py` 
+- The author uses random shifting to extract 88 x 88 patches from 128 x 128 SAR image chips.
+    - The number of training images per one SAR image chip could be increased at maximum by (128 - 88 + 1) x (128 - 88 + 1) = 1681.
+
+- However, for SOC, this repository does not use random shifting tue to accuracy issue.
+    - This implementation failed to achieve higher than 98% accuracy when using random sampling.
+    - The implementation details for data augmentation is as: 
+        - Crop the center of 94 x 94 size image on 128 x 128 SAR image chip.
+        - Extract 88 x 88 patches with stride 1 from 94 x 94 image.
+    
 
 ## Experiments
 
@@ -54,8 +68,7 @@ The proposed model only consists of **sparsely connected layers** without any fu
 You can download from [MSTAR Overview](https://www.sdms.afrl.af.mil/index.php?collection=mstar)
 
 - MSTAR Target Chips (T72 BMP2 BTR70 SLICY) which is **MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY.zip**
-- MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **
-  MSTAR-PublicMixedTargets-CD2.zip**
+- MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **MSTAR-PublicMixedTargets-CD2.zip**
 - **SLICY target is ignored**
 
 |         |            | Train      |            | Test       |            |

@@ -28,13 +28,10 @@ common.set_random_seed(12321)
 
 
 def load_dataset(path, is_train, name, batch_size):
-    _transform = [torchvision.transforms.ToTensor()] # [preprocess.CenterCrop(88), torchvision.transforms.ToTensor()]
-    # if is_train:
-    #     _transform = [preprocess.RandomCrop(88), torchvision.transforms.ToTensor()]
 
     _dataset = loader.Dataset(
         path, name=name, is_train=is_train,
-        transform=torchvision.transforms.Compose(_transform)
+        transform=torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     )
     data_loader = torch.utils.data.DataLoader(
         _dataset, batch_size=batch_size, shuffle=is_train, num_workers=1
