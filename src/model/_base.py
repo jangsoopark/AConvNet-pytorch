@@ -6,18 +6,23 @@ import model.network
 class Model(object):
     def __init__(self, **params):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.net = model.network.Network(params['classes'])
+        self.net = model.network.Network(
+            classes=params.get('classes', 10),
+            channels=params.get('channels', 1),
+            dropout_rate=params.get('dropout_rate', 0.5)
+        )
         self.net.to(self.device)
 
         self.lr = params.get('lr', 1e-3)
-        self.lr_step = params.get('lr_step', None)
-        self.lr_decay = params.get('lr_decay', None)
+        self.lr_step = params.get('lr_step', [50])
+        self.lr_decay = params.get('lr_decay', 0.1)
+
         self.lr_scheduler = None
 
         self.momentum = params.get('momentum', 0.9)
         self.weight_decay = params.get('weight_decay', 4e-3)
 
-        self.criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+        self.criterion = torch.nn.CrossEntropyLoss()
         self.optimizer = torch.optim.SGD(
             self.net.parameters(),
             lr=self.lr,
