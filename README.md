@@ -159,6 +159,7 @@ $ python3 train.py
 
 - Noise Simulation [1]
     - i.i.d samples from a uniform distribution
+    - This simulation does not fix the random seed
 
 | Noise | 1% | 5% | 10% | 15%|
 | :---: | :---: | :---: | :---: | :---: |
