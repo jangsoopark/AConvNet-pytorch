@@ -163,6 +163,17 @@ $ python3 train.py
 
 ### End-to-End SAR-ATR Cases
 
+## Details about the specific environment of this repository
+
+| | |
+| :---------: | :------: |
+| OS | Ubuntu 20.04 LTS |
+| CPU | Intel i7-10700k |
+| GPU | RTX 2080Ti 11GB |
+| Memory | 32GB |
+| SSD | 500GB |
+| HDD | 2TB |
+
 ## Citation
 
 ```bibtex
