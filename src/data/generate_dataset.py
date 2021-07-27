@@ -21,6 +21,8 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 
 
 def generate(src_path, dst_path, is_train, use_phase):
+    if not os.path.exists(src_path):
+        return
     if not os.path.exists(dst_path):
         os.makedirs(dst_path, exist_ok=True)
     print(f'Target Name: {os.path.basename(dst_path)}')
