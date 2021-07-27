@@ -30,7 +30,7 @@ FLAGS = flags.FLAGS
 def load_dataset(path, is_train, name, batch_size):
     transform = [preprocess.CenterCrop(88), torchvision.transforms.ToTensor()]
     if is_train:
-        transform = [preprocess.RandomCrop(88) torchvision.transforms.ToTensor()]
+        transform = [preprocess.RandomCrop(88), torchvision.transforms.ToTensor()]
     _dataset = loader.Dataset(
         path, name=name, is_train=is_train,
         transform=torchvision.transforms.Compose(transform)
