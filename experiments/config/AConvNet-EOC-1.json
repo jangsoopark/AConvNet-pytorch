@@ -1,6 +1,6 @@
 {
-  "model_name": "AConvNet-SOC",
-  "dataset": "soc",
+  "model_name": "AConvNet-EOC-1",
+  "dataset": "eoc-1",
   "num_classes": 10,
   "channels": 2,
   "batch_size": 100,
