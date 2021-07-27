@@ -6,15 +6,32 @@ import tqdm
 import glob
 import os
 
-target_name = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
-serial_number = ('b01', '9563', 'E-71', 'k10yt7532', 'c71', '92v13015', 'A51', '132', 'E12', 'd08')
+target_name_soc = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
+target_name_eoc_1 = ('2S1', 'BRDM2', 'T72', 'ZSU234')
+serial_number = {
+    'b01': 0,
+    '9563': 1,
+    'E-71': 2,
+    'k10yt7532': 3,
+    'c71': 4,
+    '92v13015': 5,
+    'A51': 6,
+
+    '132': 7,
+    'A64': 7,
+
+    'E12': 8,
+    'd08': 9
+}
 
 
 class MSTAR(object):
 
-    def __init__(self, is_train=False, use_phase=False, patch_size=88, stride=40):
+    def __init__(self, name='soc', is_train=False, use_phase=False, chip_size=94, patch_size=88, stride=40):
+        self.name = name
         self.is_train = is_train
         self.use_phase = use_phase
+        self.chip_size = chip_size
         self.patch_size = patch_size
         self.stride = stride
 
@@ -74,22 +91,22 @@ class MSTAR(object):
 
         return data[y: y + size, x: x + size]
 
-    @staticmethod
-    def _data_augmentation(data, patch_size=88, stride=40):
+    def _data_augmentation(self, data, patch_size=88, stride=40):
         # patch extraction
-        _data = MSTAR._center_crop(data, size=94)
+        _data = MSTAR._center_crop(data, size=self.chip_size)
         _, _, channels = _data.shape
         patches = shape.view_as_windows(_data, window_shape=(patch_size, patch_size, channels), step=stride)
         patches = patches.reshape(-1, patch_size, patch_size, channels)
         return patches
 
-    @staticmethod
-    def _extract_meta_label(header):
+    def _extract_meta_label(self, header):
 
         target_type = header['TargetType']
         sn = header['TargetSerNum']
 
-        class_id = serial_number.index(sn)
+        class_id = serial_number[sn]
+        if self.name == 'eoc-1':
+            class_id = target_name_eoc_1.index(target_name_soc[class_id])
 
         azimuth_angle = MSTAR._get_azimuth_angle(header['TargetAz'])
 
