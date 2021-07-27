@@ -7,7 +7,19 @@ import glob
 import os
 
 target_name = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
-serial_number = ('b01', '9563', 'E-71', 'k10yt7532', 'c71', '92v13015', 'A51', '132', 'E12', 'd08')
+serial_number = {
+    'b01': 0,
+    '9563': 1,
+    'E-71': 2,
+    'k10yt7532': 3,
+    'c71': 4,
+    '92v13015': 5,
+    'A51': 6,
+    '132': 7,
+    'A64': 7,
+    'E12': 8,
+    'd08': 9
+}
 
 
 class MSTAR(object):
@@ -89,7 +101,7 @@ class MSTAR(object):
         target_type = header['TargetType']
         sn = header['TargetSerNum']
 
-        class_id = serial_number.index(sn)
+        class_id = serial_number[sn]
 
         azimuth_angle = MSTAR._get_azimuth_angle(header['TargetAz'])
 
