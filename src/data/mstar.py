@@ -26,9 +26,10 @@ serial_number = {
 
 class MSTAR(object):
 
-    def __init__(self, is_train=False, use_phase=False, patch_size=88, stride=40):
+    def __init__(self, is_train=False, use_phase=False, chip_size=94, patch_size=88, stride=40):
         self.is_train = is_train
         self.use_phase = use_phase
+        self.chip_size = chip_size
         self.patch_size = patch_size
         self.stride = stride
 

@@ -141,7 +141,7 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --dataset=soc
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=94 --dataset=soc 
 $ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
 $ cd ..
 $ python3 train.py
