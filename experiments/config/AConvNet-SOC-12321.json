@@ -1,0 +1,14 @@
+{
+  "model_name": "AConvNet-SOC-12321",
+  "dataset": "soc",
+  "num_classes": 10,
+  "channels": 2,
+  "batch_size": 100,
+  "epochs": 50,
+  "momentum": 0.9,
+  "lr": 1e-3,
+  "lr_step": [26],
+  "lr_decay": 0.1,
+  "weight_decay": 4e-3,
+  "dropout_rate": 0.5
+}

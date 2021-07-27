@@ -39,7 +39,7 @@ The proposed model only consists of **sparsely connected layers** without any fu
 | activation  | linear |    ReLU    |    ReLU    |    ReLU    |  ReLU  | Softmax |
 
 ## Training
-For training, this implementation fixes the random seed to `12321` for `reproducibility`.
+~~For training, this implementation fixes the random seed to `12321` for `reproducibility`.~~
 
 The experimental conditions are same as in the paper, except for `data augmentation` and `learning rate`. 
 The `learning rate` is initialized with `1e-3` and decreased by a factor of 0.1 **after 26 epochs**.
@@ -144,7 +144,7 @@ $ cd src/data
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=94 --dataset=soc 
 $ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
 $ cd ..
-$ python3 train.py
+$ python3 train.py --config_name=config/AConvNet-SOC.json
 ```
 
 #### Results of SOC
@@ -168,7 +168,7 @@ $ python3 train.py
 | AConvNet-PyTorch | 98.56 | 94.39 | 85.03 | 73.65 |
 | AConvNet-Official | 91.76 | 88.52 | 75.84 | 54.68 |
 
-
+<!--
 ### Extended Operating Conditions (EOC)
 
 #### EOC-1 (Large depression angle change)
@@ -216,15 +216,28 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 └ ...
 
 ```
-- Train Target: 2S1, BRDM2, T72, ZSU234 with depression angle 17$\degree$
-- Test Target: 2S1, BRDM2, T72, ZSU234 with depression angle 30$\degree$
+
+#### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=96 --dataset=eoc-1 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-1.json
+```
+
 
 #### EOC-2 (Target configuration and version variants)
 
 ### Outlier Rejection
 
 ### End-to-End SAR-ATR Cases
-
+-->
 ## Details about the specific environment of this repository
 
 | | |
