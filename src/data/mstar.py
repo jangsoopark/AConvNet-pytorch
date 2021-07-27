@@ -89,10 +89,9 @@ class MSTAR(object):
 
         return data[y: y + size, x: x + size]
 
-    @staticmethod
-    def _data_augmentation(data, patch_size=88, stride=40):
+    def _data_augmentation(self, data, patch_size=88, stride=40):
         # patch extraction
-        _data = MSTAR._center_crop(data, size=94)
+        _data = MSTAR._center_crop(data, size=self.chip_size)
         _, _, channels = _data.shape
         patches = shape.view_as_windows(_data, window_shape=(patch_size, patch_size, channels), step=stride)
         patches = patches.reshape(-1, patch_size, patch_size, channels)
