@@ -1,13 +1,13 @@
 {
   "model_name": "AConvNet-EOC-1",
   "dataset": "eoc-1",
-  "num_classes": 10,
+  "num_classes": 4,
   "channels": 2,
   "batch_size": 100,
   "epochs": 50,
   "momentum": 0.9,
   "lr": 1e-3,
-  "lr_step": [26],
+  "lr_step": [6],
   "lr_decay": 0.1,
   "weight_decay": 4e-3,
   "dropout_rate": 0.5
