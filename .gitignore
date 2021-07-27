@@ -282,9 +282,14 @@ $RECYCLE.BIN/
 # asdf
 dataset/soc/raw/train/
 dataset/soc/raw/test/
-
 dataset/soc/train/
 dataset/soc/test/
+
+dataset/eoc-1/raw/train/
+dataset/eoc-1/raw/test/
+dataset/eoc-1/train/
+dataset/eoc-1/test/
+
 experiments/history
 
 *.pth

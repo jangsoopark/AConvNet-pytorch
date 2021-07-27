@@ -61,12 +61,14 @@ You can see the details in `src/model/_base.py` and `experiments/config/AConvNet
 ## Experiments
 
 You can download the MSTAR Dataset from [MSTAR Overview](https://www.sdms.afrl.af.mil/index.php?collection=mstar)
+- MSTAR Clutter - CD1 / CD2
+- MSTAR Target Chips (T72 BMP2 BTR70 SLICY) - CD1
+- MSTAR / IU Mixed Targets - CD1 / CD2
+- MSTAR / IU T-72 Variants - CD1 / CD2
+- MSTAR Predictlite Software - CD1
+
 
 ### Standard Operating Condition (SOC)
-
-- MSTAR Target Chips (T72 BMP2 BTR70 SLICY) which is **MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY.zip**
-- MSTAR / IU Mixed Targets which consists of **MSTAR-PublicMixedTargets-CD1.zip** and **MSTAR-PublicMixedTargets-CD2.zip**
-- **SLICY target is ignored**
 
 |         |            | Train      |            | Test       |            |
 | ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
@@ -82,7 +84,7 @@ You can download the MSTAR Dataset from [MSTAR Overview](https://www.sdms.afrl.a
 | ZIL-131 | E12        | 17         | 299        | 15         | 274        |
 | ZSU-234 | d08        | 17         | 299        | 15         | 274        |
 
-#### Training Set (Depression: 17$\degree$​)
+#### Training Set (Depression: 17$\degree$)
 
 ```shell
 MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY
@@ -107,7 +109,7 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 
 ```
 
-#### Test Set (Depression: 15$\degree$​​)
+#### Test Set (Depression: 15$\degree$)
 
 ```shell
 MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY
@@ -168,6 +170,56 @@ $ python3 train.py
 
 
 ### Extended Operating Conditions (EOC)
+
+#### EOC-1 (Large depression angle change)
+
+
+|         | Train      |            |            | Test       |            |            |
+| ------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Class   | Serial No. | Depression | No. Images | Serial No. | Depression | No. Images |
+| T-72    | 132        | 17         | 232        | A64        | 30         | 196        |
+| 2S1     | b01        | 17         | 299        | b01        | 30         | 274        |
+| BRDM-2  | E-71       | 17         | 298        | E-71       | 30         | 274        |
+| ZSU-234 | d08        | 17         | 299        | d08        | 30         | 274        |
+
+```shell
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TRAIN/17_DEG
+│    └ T72/SN_132/*.015   (232 images)
+└ ...
+
+MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
+├ 17_DEG
+│    └ COL2/SCENE1
+│        ├ 2S1/*.000            (299 images)
+│        ├ BRDM_2/*.001         (298 images)
+│        └ ZSU_23_4/*.026       (299 images)
+└ ...
+
+```
+
+#### Test Set (Depression: 30$\degree$)
+
+```shell
+MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
+├ 30_DEG/COL2/SCENE1
+│    └ A64/*.024   (288 images)
+└ ...
+
+MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
+├ 30_DEG
+│    └ COL2/SCENE1
+│        ├ 2S1/*.000            (288 images)
+│        ├ BRDM_2/*.001         (287 images)
+│        ├ ZSU_23_4/*.026       (288 images)
+│        └ ...
+└ ...
+
+```
+- Train Target: 2S1, BRDM2, T72, ZSU234 with depression angle 17$\degree$
+- Test Target: 2S1, BRDM2, T72, ZSU234 with depression angle 30$\degree$
+
+#### EOC-2 (Target configuration and version variants)
 
 ### Outlier Rejection
 
