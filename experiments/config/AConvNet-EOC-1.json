@@ -7,7 +7,7 @@
   "epochs": 50,
   "momentum": 0.9,
   "lr": 1e-3,
-  "lr_step": [6],
+  "lr_step": [14],
   "lr_decay": 0.1,
   "weight_decay": 4e-3,
   "dropout_rate": 0.5
