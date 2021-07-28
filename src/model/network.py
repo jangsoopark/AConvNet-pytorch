@@ -34,7 +34,7 @@ class Network(nn.Module):
             ),
             nn.Dropout(p=self.dropout_rate),
             _blocks.Conv2DBlock(
-                shape=[3, 3, 128, self.classes], stride=3, padding='valid',
+                shape=[3, 3, 128, self.classes], stride=1, padding='valid',
                 w_init=_w_init, b_init=nn.init.zeros_
             ),
             nn.Flatten()
