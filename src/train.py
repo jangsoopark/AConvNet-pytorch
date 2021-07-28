@@ -24,7 +24,7 @@ flags.DEFINE_string('config_name', 'config/AConvNet-SOC.json', help='')
 FLAGS = flags.FLAGS
 
 
-# common.set_random_seed(12321)
+common.set_random_seed(12321)
 
 
 def load_dataset(path, is_train, name, batch_size):
@@ -103,7 +103,9 @@ def run(epochs, dataset, classes, channels, batch_size,
 
         accuracy = validation(m, valid_set)
 
-        logging.info(f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | accuracy={accuracy}')
+        logging.info(
+            f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | accuracy={accuracy:.2f}'
+        )
 
         history['loss'].append(np.mean(_loss))
         history['accuracy'].append(accuracy)
