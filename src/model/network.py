@@ -25,11 +25,11 @@ class Network(nn.Module):
                 w_init=_w_init, b_init=_b_init
             ),
             _blocks.Conv2DBlock(
-                shape=[6, 6, 32, 64], stride=1, padding='valid', activation='relu', max_pool=True,
+                shape=[5, 5, 32, 64], stride=1, padding='valid', activation='relu', max_pool=True,
                 w_init=_w_init, b_init=_b_init
             ),
             _blocks.Conv2DBlock(
-                shape=[5, 5, 64, 128], stride=1, padding='valid', activation='relu',
+                shape=[6, 6, 64, 128], stride=1, padding='valid', activation='relu',
                 w_init=_w_init, b_init=_b_init
             ),
             nn.Dropout(p=self.dropout_rate),
