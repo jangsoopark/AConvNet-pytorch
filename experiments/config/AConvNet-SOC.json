@@ -2,7 +2,7 @@
   "model_name": "AConvNet-SOC",
   "dataset": "soc",
   "num_classes": 10,
-  "channels": 2,
+  "channels": 1,
   "batch_size": 100,
   "epochs": 50,
   "momentum": 0.9,

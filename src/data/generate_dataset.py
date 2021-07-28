@@ -3,6 +3,7 @@ from absl import flags
 from absl import app
 
 from multiprocessing import Pool
+from PIL import Image
 import numpy as np
 
 import json
@@ -13,8 +14,7 @@ import mstar
 
 flags.DEFINE_string('image_root', default='dataset', help='')
 flags.DEFINE_string('dataset', default='soc', help='')
-flags.DEFINE_boolean('is_train', default=True, help='')
-flags.DEFINE_boolean('use_phase', default=False, help='')
+flags.DEFINE_boolean('is_train', default=False, help='')
 flags.DEFINE_integer('chip_size', default=100, help='')
 flags.DEFINE_integer('patch_size', default=94, help='')
 FLAGS = flags.FLAGS
@@ -22,7 +22,15 @@ FLAGS = flags.FLAGS
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-def generate(src_path, dst_path, is_train, use_phase, chip_size, patch_size, dataset):
+def data_scaling(chip):
+    r = chip.max() - chip.min()
+    t = (chip - chip.min()) / r
+    t = t * 255 + 0.5
+    t = np.squeeze(t, axis=2)
+    return t.astype(np.uint8)
+
+
+def generate(src_path, dst_path, is_train, chip_size, patch_size, dataset):
     if not os.path.exists(src_path):
         return
     if not os.path.exists(dst_path):
@@ -30,7 +38,7 @@ def generate(src_path, dst_path, is_train, use_phase, chip_size, patch_size, dat
     print(f'Target Name: {os.path.basename(dst_path)}')
 
     _mstar = mstar.MSTAR(
-        name=dataset, is_train=is_train, use_phase=use_phase, chip_size=chip_size, patch_size=patch_size, stride=1
+        name=dataset, is_train=is_train, chip_size=chip_size, patch_size=patch_size, stride=1
     )
 
     image_list = glob.glob(os.path.join(src_path, '*'))
@@ -41,7 +49,8 @@ def generate(src_path, dst_path, is_train, use_phase, chip_size, patch_size, dat
             name = os.path.splitext(os.path.basename(path))[0]
             with open(os.path.join(dst_path, f'{name}-{i}.json'), mode='w', encoding='utf-8') as f:
                 json.dump(label, f, ensure_ascii=False, indent=2)
-            np.save(os.path.join(dst_path, f'{name}-{i}.npy'), _image)
+
+            Image.fromarray(data_scaling(_image)).convert('L').save(os.path.join(dst_path, f'{name}-{i}.bmp'))
 
 
 def main(_):
@@ -58,7 +67,7 @@ def main(_):
         (
             os.path.join(raw_root, mode, target),
             os.path.join(output_root, target),
-            FLAGS.is_train, FLAGS.use_phase, FLAGS.chip_size, FLAGS.patch_size, FLAGS.dataset
+            FLAGS.is_train, FLAGS.chip_size, FLAGS.patch_size, FLAGS.dataset
         ) for target in mstar.target_name_soc
     ]
 

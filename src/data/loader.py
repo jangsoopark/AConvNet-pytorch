@@ -1,6 +1,6 @@
 import numpy as np
 
-import torchvision
+from skimage import io
 import torch
 import tqdm
 
@@ -42,13 +42,13 @@ class Dataset(torch.utils.data.Dataset):
     def _load_data(self, path):
         mode = 'train' if self.is_train else 'test'
 
-        image_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.npy'))
+        image_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.bmp'))
         label_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.json'))
         image_list = sorted(image_list, key=os.path.basename)
         label_list = sorted(label_list, key=os.path.basename)
 
         for image_path, label_path in tqdm.tqdm(zip(image_list, label_list), desc=f'load {mode} data set'):
-            self.images.append(np.load(image_path))
+            self.images.append(io.imread(image_path))
 
             with open(label_path, mode='r', encoding='utf-8') as f:
                 _label = json.load(f)
