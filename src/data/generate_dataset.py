@@ -25,7 +25,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 def data_scaling(chip):
     r = chip.max() - chip.min()
     t = (chip - chip.min()) / r
-    t = t * 255 + 0.5
+    t = np.round(t * 255)
     t = np.squeeze(t, axis=2)
     return t.astype(np.uint8)
 
