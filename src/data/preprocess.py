@@ -35,8 +35,11 @@ class RandomCrop(object):
 
         h, w, _ = _input.shape
         oh, ow = self.size
-        y = np.random.randint(0, h - oh)
-        x = np.random.randint(0, w - ow)
+
+        dh = h - oh
+        dw = w - ow
+        y = np.random.randint(0, dh) if dh > 0 else h
+        x = np.random.randint(0, dw) if dw > 0 else w
 
         return _input[y: y + oh, x: x + ow, :]
 
