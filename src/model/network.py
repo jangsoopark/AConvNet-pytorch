@@ -12,7 +12,7 @@ class Network(nn.Module):
         self.classes = params.get('classes', 10)
         self.channels = params.get('channels', 1)
 
-        _w_init = params.get('w_init', lambda x: nn.init.normal_(x, std=0.01))
+        _w_init = params.get('w_init', lambda x: nn.init.kaiming_uniform_(x, nonlinearity='relu'))
         _b_init = params.get('b_init', lambda x: nn.init.constant_(x, 0.1))
 
         self._layer = nn.Sequential(
@@ -25,7 +25,7 @@ class Network(nn.Module):
                 w_init=_w_init, b_init=_b_init
             ),
             _blocks.Conv2DBlock(
-                shape=[5, 5, 32, 64], stride=1, padding='valid', activation='relu', max_pool=True,
+                shape=[6, 6, 32, 64], stride=1, padding='valid', activation='relu', max_pool=True,
                 w_init=_w_init, b_init=_b_init
             ),
             _blocks.Conv2DBlock(
