@@ -12,7 +12,7 @@ class Network(nn.Module):
         self.classes = params.get('classes', 10)
         self.channels = params.get('channels', 1)
 
-        _w_init = params.get('w_init', lambda x: nn.init.kaiming_uniform_(x, nonlinearity='relu'))
+        _w_init = params.get('w_init', lambda x: nn.init.kaiming_normal_(x, nonlinearity='relu'))
         _b_init = params.get('b_init', lambda x: nn.init.constant_(x, 0.1))
 
         self._layer = nn.Sequential(
