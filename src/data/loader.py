@@ -42,7 +42,7 @@ class Dataset(torch.utils.data.Dataset):
     def _load_data(self, path):
         mode = 'train' if self.is_train else 'test'
 
-        image_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.bmp'))
+        image_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.npy'))
         label_list = glob.glob(os.path.join(project_root, path, f'{self.name}/{mode}/*/*.json'))
         image_list = sorted(image_list, key=os.path.basename)
         label_list = sorted(label_list, key=os.path.basename)
