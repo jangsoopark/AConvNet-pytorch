@@ -48,7 +48,7 @@ class Dataset(torch.utils.data.Dataset):
         label_list = sorted(label_list, key=os.path.basename)
 
         for image_path, label_path in tqdm.tqdm(zip(image_list, label_list), desc=f'load {mode} data set'):
-            self.images.append(io.imread(image_path))
+            self.images.append(np.load(image_path))
 
             with open(label_path, mode='r', encoding='utf-8') as f:
                 _label = json.load(f)
