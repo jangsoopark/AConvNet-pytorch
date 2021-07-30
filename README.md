@@ -166,11 +166,11 @@ $ python3 train.py --config_name=config/AConvNet-SOC.json
 | AConvNet-PyTorch | 98.60 | 95.18 | 85.36 | 73.24 |
 | AConvNet-Official | 91.76 | 88.52 | 75.84 | 54.68 |
 
-<!--
+
 ### Extended Operating Conditions (EOC)
 
 #### EOC-1 (Large depression angle change)
-
+##### Train T72 with Serial No. 132
 
 |         | Train      |            |            | Test       |            |            |
 | ------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
@@ -223,13 +223,13 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=96 --dataset=eoc-1 
-$ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=98 --use_phase=True --dataset=eoc-1-t72-132 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-1-t72-132
 $ cd ..
 $ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 ```
 
-
+<!--
 #### EOC-2 (Target configuration and version variants)
 
 ### Outlier Rejection
