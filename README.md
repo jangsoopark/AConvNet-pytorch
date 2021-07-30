@@ -41,8 +41,7 @@ The proposed model only consists of **sparsely connected layers** without any fu
 ## Training
 For training, this implementation fixes the random seed to `12321` for `reproducibility`.
 
-The experimental conditions are same as in the paper, except for `data augmentation` and `learning rate`. 
-The `learning rate` is initialized with `1e-3` and decreased by a factor of 0.1 **after 26 epochs**.
+The experimental conditions are same as in the paper, except for `data augmentation`.
 You can see the details in `src/model/_base.py` and `experiments/config/AConvNet-SOC.json`
 
 ### Data Augmentation
@@ -52,10 +51,9 @@ You can see the details in `src/model/_base.py` and `experiments/config/AConvNet
 
 - However, for SOC, this repository does not use random shifting tue to accuracy issue.
     - You can see the details in `src/data/generate_dataset.py` and `src/data/mstar.py`
-    - This implementation failed to achieve higher than 98% accuracy when using random sampling.
     - The implementation details for data augmentation is as: 
-        - Crop the center of 94 x 94 size image on 128 x 128 SAR image chip (49 patches per image chip).
-        - Extract 88 x 88 patches with stride 1 from 94 x 94 image.
+        - Crop the center of 94 x 94 size image on 100 x 100 SAR image chip (49 patches per image chip).
+        - Extract 88 x 88 patches with stride 1 from 94 x 94 image with random cropping.
     
 
 ## Experiments
@@ -141,14 +139,14 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=94 --dataset=soc 
-$ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=soc 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=soc
 $ cd ..
-$ python3 train.py
+$ python3 train.py --config_name=config/AConvNet-SOC.json
 ```
 
 #### Results of SOC
-- Final Accuracy is **99.18%** (The official accuracy is 99.13%)
+- Final Accuracy is **99.13%** at epoch 26 (The official accuracy is 99.13%)
 - You can see the details in `notebook/experiments-SOC.ipynb`
 
 - Visualization of training loss and test accuracy
@@ -165,10 +163,10 @@ $ python3 train.py
 
 | Noise | 1% | 5% | 10% | 15%|
 | :---: | :---: | :---: | :---: | :---: |
-| AConvNet-PyTorch | 98.56 | 94.39 | 85.03 | 73.65 |
+| AConvNet-PyTorch | 98.60 | 95.18 | 85.36 | 73.24 |
 | AConvNet-Official | 91.76 | 88.52 | 75.84 | 54.68 |
 
-
+<!--
 ### Extended Operating Conditions (EOC)
 
 #### EOC-1 (Large depression angle change)
@@ -216,15 +214,28 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 └ ...
 
 ```
-- Train Target: 2S1, BRDM2, T72, ZSU234 with depression angle 17$\degree$
-- Test Target: 2S1, BRDM2, T72, ZSU234 with depression angle 30$\degree$
+
+#### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=96 --dataset=eoc-1 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-1.json
+```
+
 
 #### EOC-2 (Target configuration and version variants)
 
 ### Outlier Rejection
 
 ### End-to-End SAR-ATR Cases
-
+-->
 ## Details about the specific environment of this repository
 
 | | |

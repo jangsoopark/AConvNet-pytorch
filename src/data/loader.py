@@ -1,6 +1,6 @@
 import numpy as np
 
-import torchvision
+from skimage import io
 import torch
 import tqdm
 

@@ -14,6 +14,7 @@ import numpy as np
 import json
 import os
 
+from data import preprocess
 from data import loader
 from utils import common
 import model
@@ -22,14 +23,17 @@ flags.DEFINE_string('experiments_path', os.path.join(common.project_root, 'exper
 flags.DEFINE_string('config_name', 'config/AConvNet-SOC.json', help='')
 FLAGS = flags.FLAGS
 
-#common.set_random_seed(12321)
+
+common.set_random_seed(12321)
 
 
 def load_dataset(path, is_train, name, batch_size):
-
+    transform = [preprocess.CenterCrop(88), torchvision.transforms.ToTensor()]
+    if is_train:
+        transform = [preprocess.RandomCrop(88), torchvision.transforms.ToTensor()]
     _dataset = loader.Dataset(
         path, name=name, is_train=is_train,
-        transform=torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+        transform=torchvision.transforms.Compose(transform)
     )
     data_loader = torch.utils.data.DataLoader(
         _dataset, batch_size=batch_size, shuffle=is_train, num_workers=1
@@ -99,7 +103,9 @@ def run(epochs, dataset, classes, channels, batch_size,
 
         accuracy = validation(m, valid_set)
 
-        logging.info(f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | accuracy={accuracy}')
+        logging.info(
+            f'Epoch: {epoch + 1:03d}/{epochs:03d} | loss={np.mean(_loss):.4f} | lr={lr} | accuracy={accuracy:.2f}'
+        )
 
         history['loss'].append(np.mean(_loss))
         history['accuracy'].append(accuracy)
