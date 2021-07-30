@@ -226,7 +226,7 @@ $ cd src/data
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=96 --dataset=eoc-1 
 $ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
 $ cd ..
-$ python3 train.py --config_name=config/AConvNet-EOC-1.json
+$ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 ```
 
 
