@@ -141,14 +141,14 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=128 --patch_size=104 --dataset=soc 
-$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=88 --dataset=soc
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=soc 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=soc
 $ cd ..
 $ python3 train.py --config_name=config/AConvNet-SOC.json
 ```
 
 #### Results of SOC
-- ~~Final Accuracy is **99.18%** (The official accuracy is 99.13%)~~
+- ~~Final Accuracy is **99.05%** (The official accuracy is 99.13%)~~
 - You can see the details in `notebook/experiments-SOC.ipynb`
 
 - Visualization of training loss and test accuracy

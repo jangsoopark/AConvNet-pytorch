@@ -49,7 +49,8 @@ def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dat
             with open(os.path.join(dst_path, f'{name}-{i}.json'), mode='w', encoding='utf-8') as f:
                 json.dump(label, f, ensure_ascii=False, indent=2)
 
-            _image = data_scaling(_image)
+            _image[:, :, 0] = data_scaling(_image[:, :, 0])
+            _image[:, :, 1] = data_scaling(_image[:, :, 1])
             np.save(os.path.join(dst_path, f'{name}-{i}.npy'), _image)
             # Image.fromarray(data_scaling(_image)).convert('L').save(os.path.join(dst_path, f'{name}-{i}.bmp'))
 
