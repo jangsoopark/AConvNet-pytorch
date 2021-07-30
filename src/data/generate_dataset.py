@@ -29,6 +29,10 @@ def data_scaling(chip):
     return (chip - chip.min()) / r
 
 
+def log_scale(chip):
+    return np.log10(np.abs(chip) + 1)
+
+
 def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dataset):
     if not os.path.exists(src_path):
         return
@@ -48,17 +52,8 @@ def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dat
             name = os.path.splitext(os.path.basename(path))[0]
             with open(os.path.join(dst_path, f'{name}-{i}.json'), mode='w', encoding='utf-8') as f:
                 json.dump(label, f, ensure_ascii=False, indent=2)
-            if not use_phase:
-                _image = np.abs(_image)
-                _image = 20 * np.log10(500 * _image + 3)
-                _image = data_scaling(_image)
-            else:
-                _image[:, :, 0] = np.abs(_image[:, :, 0])
-                _image[:, :, 0] = 20 * np.log10(500 * _image[:, :, 0] + 3)
 
-                _image[:, :, 0] = data_scaling(_image[:, :, 0])
-                _image[:, :, 1] = data_scaling(_image[:, :, 1])
-
+            _image = log_scale(_image)
             np.save(os.path.join(dst_path, f'{name}-{i}.npy'), _image)
             # Image.fromarray(data_scaling(_image)).convert('L').save(os.path.join(dst_path, f'{name}-{i}.bmp'))
 
