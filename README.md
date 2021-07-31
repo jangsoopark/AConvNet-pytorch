@@ -82,11 +82,11 @@ You can download the MSTAR Dataset from [MSTAR Overview](https://www.sdms.afrl.a
 | ZIL-131 | E12        | 17         | 299        | 15         | 274        |
 | ZSU-234 | d08        | 17         | 299        | 15         | 274        |
 
-#### Training Set (Depression: 17$\degree$)
+##### Training Set (Depression: 17$\degree$)
 
 ```shell
-MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY
-├ TRAIN/17_DEG
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TRAIN/17_DEG
 │    ├ BMP2/SN_9563/*.000 (233 images)
 │    ├ BTR70/SN_C71/*.004 (233 images)
 │    └ T72/SN_132/*.015   (232 images)
@@ -107,11 +107,11 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 
 ```
 
-#### Test Set (Depression: 15$\degree$)
+##### Test Set (Depression: 15$\degree$)
 
 ```shell
-MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY
-├ TEST/15_DEG
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TEST/15_DEG
 │    ├ BMP2/SN_9563/*.000 (195 images)
 │    ├ BTR70/SN_C71/*.004 (196 images)
 │    └ T72/SN_132/*.015   (196 images)
@@ -131,7 +131,7 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 └ ...
 
 ```
-#### Quick Start Guide for Training
+##### Quick Start Guide for Training
 
 - Dataset Preparation
     - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
@@ -145,8 +145,8 @@ $ cd ..
 $ python3 train.py --config_name=config/AConvNet-SOC.json
 ```
 
-#### Results of SOC
-- Final Accuracy is **99.13%** at epoch 26 (The official accuracy is 99.13%)
+##### Results of SOC
+- Final Accuracy is **99.34%** at epoch 29 (The official accuracy is 99.13%)
 - You can see the details in `notebook/experiments-SOC.ipynb`
 
 - Visualization of training loss and test accuracy
@@ -163,27 +163,27 @@ $ python3 train.py --config_name=config/AConvNet-SOC.json
 
 | Noise | 1% | 5% | 10% | 15%|
 | :---: | :---: | :---: | :---: | :---: |
-| AConvNet-PyTorch | 98.60 | 95.18 | 85.36 | 73.24 |
+| AConvNet-PyTorch | 98.64 | 94.10 | 84.54 | 71.55 |
 | AConvNet-Official | 91.76 | 88.52 | 75.84 | 54.68 |
 
-<!--
+
 ### Extended Operating Conditions (EOC)
 
 #### EOC-1 (Large depression angle change)
 
+|         |            | Train      |            | Test       |            |
+| ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Class   | Serial No. | Depression | No. Images | Depression | No. Images |
+| T-72    | A64        | 17         | 299        | 30         | 196        |
+| 2S1     | b01        | 17         | 299        | 30         | 274        |
+| BRDM-2  | E-71       | 17         | 298        | 30         | 274        |
+| ZSU-234 | d08        | 17         | 299        | 30         | 274        |
 
-|         | Train      |            |            | Test       |            |            |
-| ------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
-| Class   | Serial No. | Depression | No. Images | Serial No. | Depression | No. Images |
-| T-72    | 132        | 17         | 232        | A64        | 30         | 196        |
-| 2S1     | b01        | 17         | 299        | b01        | 30         | 274        |
-| BRDM-2  | E-71       | 17         | 298        | E-71       | 30         | 274        |
-| ZSU-234 | d08        | 17         | 299        | d08        | 30         | 274        |
-
+##### Training Set (Depression: 17$\degree$)
 ```shell
-MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
-├ TRAIN/17_DEG
-│    └ T72/SN_132/*.015   (232 images)
+MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
+├ 17_DEG/COL2/SCENE1
+│    └ A64/*.024   (299 images)
 └ ...
 
 MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
@@ -196,7 +196,7 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 
 ```
 
-#### Test Set (Depression: 30$\degree$)
+##### Test Set (Depression: 30$\degree$)
 
 ```shell
 MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
@@ -215,23 +215,203 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 
 ```
 
-#### Quick Start Guide for Training
+##### Quick Start Guide for Training
 
 - Dataset Preparation
-    - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
+    - Download the [eoc-1-dataset.zip](#) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=96 --dataset=eoc-1 
-$ python3 generate_dataset.py --is_train=False --use_phase=True --dataset=soc
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-1-t72-132 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-1-t72-132
 $ cd ..
-$ python3 train.py --config_name=config/AConvNet-EOC-1.json
+$ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 ```
 
+##### Results of EOC-1
+- Final Accuracy is **91.49%** at epoch 17 (The official accuracy is 96.12%)
+- You can see the details in `notebook/experiments-EOC-1-T72-A64.ipynb`
 
-#### EOC-2 (Target configuration and version variants)
+- Visualization of training loss and test accuracy
 
+![soc-training-plot](./assets/figure/eoc-1-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 28**
+
+![soc-confusion-matrix](./assets/figure/eoc-1-confusion-matrix.png)
+
+
+#### EOC-2 (Target configuration variants)
+
+|         |            | Train      |            | Test       |            |
+| ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Class   | Serial No. | Depression | No. Images | Depression | No. Images |
+| BMP-2   | 9563       | 17         | 233        | -          | -          |
+| BRDM-2  | E-71       | 17         | 298        | -          | -          |
+| BTR-70  | c71        | 17         | 233        | -          | -          |
+| T-72    | 132        | 17         | 232        | -          | -          |
+| T-72    | S7         | -          | -          | 15, 17     | 419        |
+| T-72    | A32        | -          | -          | 15, 17     | 572        |
+| T-72    | A62        | -          | -          | 15, 17     | 573        |
+| T-72    | A63        | -          | -          | 15, 17     | 573        |
+| T-72    | A64        | -          | -          | 15, 17     | 573        |
+
+##### Training Set (Depression: 17$\degree$)
+```shell
+# BMP2, BRDM2, BTR70, T72 are selected from SOC training data
+```
+
+##### Test Set (Depression: 15$\degree$)
+
+```shell
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TRAIN/17_DEG
+│    └ T72/SN_S7/*.017   (228 images)
+└ ...
+
+MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
+├ 17_DEG/COL2/SCENE1
+│    ├ A32/*.017   (299 images)
+│    ├ A62/*.018   (299 images)
+│    ├ A63/*.019   (299 images)
+│    ├ A64/*.020   (299 images)
+├    └ ...
+└ ...
+
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TEST/15_DEG
+│    └ T72/SN_S7/*.017   (191 images)
+└ ...
+
+MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
+├ 15_DEG/COL2/SCENE1
+│    ├ A32/*.017   (274 images)
+│    ├ A62/*.018   (274 images)
+│    ├ A63/*.019   (274 images)
+│    ├ A64/*.020   (274 images)
+├    └ ...
+└ ...
+
+```
+
+##### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [eoc-1-dataset.zip](#) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-cv 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-2-cv
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
+```
+
+##### Results of EOC-1
+- Final Accuracy is **99.41%** at epoch 95 (The official accuracy is 98.93%)
+- You can see the details in `notebook/experiments-EOC-2-CV.ipynb`
+
+- Visualization of training loss and test accuracy
+
+![soc-training-plot](./assets/figure/eoc-2-cv-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 95**
+
+![soc-confusion-matrix](./assets/figure/eoc-2-cv-confusion-matrix.png)
+
+
+#### EOC-2 (Target version variants)
+
+|         |            | Train      |            | Test       |            |
+| ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Class   | Serial No. | Depression | No. Images | Depression | No. Images |
+| BMP-2   | 9563       | 17         | 233        | -          | -          |
+| BRDM-2  | E-71       | 17         | 298        | -          | -          |
+| BTR-70  | c71        | 17         | 233        | -          | -          |
+| T-72    | 132        | 17         | 232        | -          | -          |
+| BMP-2   | 9566       | -          | -          | 15, 17     | 428        |
+| BMP-2   | c21        | -          | -          | 15, 17     | 429        |
+| T-72    | 812        | -          | -          | 15, 17     | 426        |
+| T-72    | A04        | -          | -          | 15, 17     | 573        |
+| T-72    | A05        | -          | -          | 15, 17     | 573        |
+| T-72    | A07        | -          | -          | 15, 17     | 573        |
+| T-72    | A10        | -          | -          | 15, 17     | 567        |
+
+##### Training Set (Depression: 17$\degree$)
+```shell
+
+asdf
+```
+
+##### Test Set (Depression: 15$\degree$)
+
+```shell
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TRAIN/17_DEG
+│    ├ BMP2/SN_9566/*.001 (232 images)
+│    ├ BMP2/SN_C21/*.002 (233 images)
+│    ├ T72/SN_812/*.016   (231 images)
+│    └ ...
+└ ...
+
+MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
+├ 17_DEG/COL2/SCENE1
+│    ├ A04/*.017   (299 images)
+│    ├ A05/*.018   (299 images)
+│    ├ A07/*.019   (299 images)
+│    ├ A10/*.020   (296 images)
+├    └ ...
+└ ...
+
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TEST/15_DEG
+│    ├ BMP2/SN_9566/*.001 (196 images)
+│    ├ BMP2/SN_C21/*.002 (196 images)
+│    ├ T72/SN_812/*.0176  (195 images)
+│    └ ...
+└ ...
+
+MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
+├ 15_DEG/COL2/SCENE1
+│    ├ A04/*.017   (274 images)
+│    ├ A05/*.018   (274 images)
+│    ├ A07/*.019   (274 images)
+│    ├ A10/*.020   (271 images)
+├    └ ...
+└ ...
+
+```
+
+##### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [eoc-1-dataset.zip](#) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-vv 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-2-vv
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
+```
+
+##### Results of EOC-1
+- Final Accuracy is **97.17%** at epoch 88 (The official accuracy is 98.60%)
+- You can see the details in `notebook/experiments-EOC-2-VV.ipynb`
+
+- Visualization of training loss and test accuracy
+
+![soc-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 88**
+
+![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
+
+
+<!--
 ### Outlier Rejection
 
 ### End-to-End SAR-ATR Cases

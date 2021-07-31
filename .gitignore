@@ -285,10 +285,15 @@ dataset/soc/raw/test/
 dataset/soc/train/
 dataset/soc/test/
 
-dataset/eoc-1/raw/train/
-dataset/eoc-1/raw/test/
-dataset/eoc-1/train/
-dataset/eoc-1/test/
+dataset/eoc-1-*/raw/train/
+dataset/eoc-1-*/raw/test/
+dataset/eoc-1-*/train/
+dataset/eoc-1-*/test/
+
+dataset/eoc-2*/raw/train/
+dataset/eoc-2*/raw/test/
+dataset/eoc-2*/train/
+dataset/eoc-2*/test/
 
 experiments/history
 
