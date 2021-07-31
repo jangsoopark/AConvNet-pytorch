@@ -247,6 +247,10 @@ $ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 |         |            | Train      |            | Test       |            |
 | ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
 | Class   | Serial No. | Depression | No. Images | Depression | No. Images |
+| BMP-2   | 9563       | 17         | 233        | -          | -          |
+| BRDM-2  | E-71       | 17         | 298        | -          | -          |
+| BTR-70  | c71        | 17         | 233        | -          | -          |
+| T-72    | 132        | 17         | 232        | -          | -          |
 | T-72    | S7         | -          | -          | 15, 17     | 419        |
 | T-72    | A32        | -          | -          | 15, 17     | 572        |
 | T-72    | A62        | -          | -          | 15, 17     | 573        |
@@ -255,8 +259,7 @@ $ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 
 ##### Training Set (Depression: 17$\degree$)
 ```shell
-asdf
-
+# BMP2, BRDM2, BTR70, T72 are selected from SOC training data
 ```
 
 ##### Test Set (Depression: 15$\degree$)
