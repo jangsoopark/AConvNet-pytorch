@@ -455,22 +455,22 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 - [ ] Implementation
     - [ ] Data generation
         - [X] SOC
-        - [ ] EOC
+        - [X] EOC
         - [ ] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [ ] Data Loader
         - [X] SOC
-        - [ ] EOC
+        - [X] EOC
         - [ ] Outlier Rejection
         - [ ] End-to-End SAR-ATR
-    - [ ] Model
+    - [X] Model
         - [X] Network
         - [X] Training
         - [X] Early Stopping
         - [X] Hyper-parameter Optimization
     - [ ] Experiments
         - [X] Reproduce the SOC Results
-        - [ ] Reproduce the EOC Results
+        - [X] Reproduce the EOC Results
         - [ ] Reproduce the outlier rejection
         - [ ] Reproduce the end-to-end SAR-ATR
 
