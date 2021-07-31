@@ -231,7 +231,7 @@ $ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
 
 ##### Results of EOC-1
 - Final Accuracy is **91.49%** at epoch 17 (The official accuracy is 96.12%)
-- You can see the details in `notebook/experiments-EOC-T72-A64.ipynb`
+- You can see the details in `notebook/experiments-EOC-1-T72-A64.ipynb`
 
 - Visualization of training loss and test accuracy
 
@@ -272,10 +272,10 @@ MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2
 
 MSTAR-PublicT72Variants-CD2/MSTAR_PUBLIC_T_72_VARIANTS_CD2
 ├ 17_DEG/COL2/SCENE1
-│    ├ A04/*.017   (299 images)
-│    ├ A05/*.018   (299 images)
-│    ├ A07/*.019   (299 images)
-│    ├ A10/*.020   (296 images)
+│    ├ A32/*.017   (299 images)
+│    ├ A62/*.018   (299 images)
+│    ├ A63/*.019   (299 images)
+│    ├ A64/*.020   (299 images)
 ├    └ ...
 └ ...
 
@@ -286,10 +286,10 @@ MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2
 
 MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 ├ 15_DEG/COL2/SCENE1
-│    ├ A04/*.017   (274 images)
-│    ├ A05/*.018   (274 images)
-│    ├ A07/*.019   (274 images)
-│    ├ A10/*.020   (271 images)
+│    ├ A32/*.017   (274 images)
+│    ├ A62/*.018   (274 images)
+│    ├ A63/*.019   (274 images)
+│    ├ A64/*.020   (274 images)
 ├    └ ...
 └ ...
 
@@ -311,7 +311,7 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 
 ##### Results of EOC-1
 - Final Accuracy is **99.41%** at epoch 95 (The official accuracy is 98.93%)
-- You can see the details in `notebook/experiments-EOC-T72-A64.ipynb`
+- You can see the details in `notebook/experiments-EOC-2-CV.ipynb`
 
 - Visualization of training loss and test accuracy
 
@@ -399,8 +399,8 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 ```
 
 ##### Results of EOC-1
-- Final Accuracy is **96.64%** at epoch 88 (The official accuracy is 98.60%)
-- You can see the details in `notebook/experiments-EOC-T72-A64.ipynb`
+- Final Accuracy is **97.17%** at epoch 88 (The official accuracy is 98.60%)
+- You can see the details in `notebook/experiments-EOC-2-VV.ipynb`
 
 - Visualization of training loss and test accuracy
 
