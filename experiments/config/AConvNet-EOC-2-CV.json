@@ -1,0 +1,14 @@
+{
+  "model_name": "AConvNet-EOC-2-CV",
+  "dataset": "eoc-2-cv",
+  "num_classes": 4,
+  "channels": 2,
+  "batch_size": 100,
+  "epochs": 100,
+  "momentum": 0.9,
+  "lr": 1e-3,
+  "lr_step": [50],
+  "lr_decay": 0.1,
+  "weight_decay": 4e-3,
+  "dropout_rate": 0.5
+}
