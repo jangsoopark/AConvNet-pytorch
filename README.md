@@ -65,6 +65,7 @@ You can download the MSTAR Dataset from [MSTAR Overview](https://www.sdms.afrl.a
 - MSTAR / IU T-72 Variants - CD1 / CD2
 - MSTAR Predictlite Software - CD1
 
+You can download the experimental results of this repository from [experiments](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/experiments.zip)
 
 ### Standard Operating Condition (SOC)
 
@@ -134,7 +135,7 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 ##### Quick Start Guide for Training
 
 - Dataset Preparation
-    - Download the [soc-dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/V2.0.0/soc-raw.zip) 
+    - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
@@ -218,7 +219,7 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 ##### Quick Start Guide for Training
 
 - Dataset Preparation
-    - Download the [eoc-1-dataset.zip](#) 
+    - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
@@ -298,7 +299,7 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 ##### Quick Start Guide for Training
 
 - Dataset Preparation
-    - Download the [eoc-1-dataset.zip](#) 
+    - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
@@ -387,7 +388,7 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 ##### Quick Start Guide for Training
 
 - Dataset Preparation
-    - Download the [eoc-1-dataset.zip](#) 
+    - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
     - Place the two directories (`train` and  `test`) to the `dataset/raw`.
 ```shell
