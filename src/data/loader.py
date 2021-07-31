@@ -20,6 +20,7 @@ class Dataset(torch.utils.data.Dataset):
 
         self.images = []
         self.labels = []
+        self.serial_number = []
 
         self.transform = transform
         self._load_data(path)
@@ -33,11 +34,12 @@ class Dataset(torch.utils.data.Dataset):
 
         _image = self.images[idx]
         _label = self.labels[idx]
+        _serial_number = self.serial_number[idx]
 
         if self.transform:
             _image = self.transform(_image)
 
-        return _image, _label
+        return _image, _label, _serial_number
 
     def _load_data(self, path):
         mode = 'train' if self.is_train else 'test'
@@ -54,3 +56,4 @@ class Dataset(torch.utils.data.Dataset):
                 _label = json.load(f)
 
             self.labels.append(_label['class_id'])
+            self.serial_number.append(_label['serial_number'])

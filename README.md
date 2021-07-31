@@ -295,6 +295,31 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 
 ```
 
+##### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [eoc-1-dataset.zip](#) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-cv 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-2-cv
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
+```
+
+##### Results of EOC-1
+- Final Accuracy is **99.41%** at epoch 95 (The official accuracy is 98.93%)
+- You can see the details in `notebook/experiments-EOC-T72-A64.ipynb`
+
+- Visualization of training loss and test accuracy
+
+![soc-training-plot](./assets/figure/eoc-2-cv-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 95**
+
+![soc-confusion-matrix](./assets/figure/eoc-2-cv-confusion-matrix.png)
 
 
 #### EOC-2 (Target version variants)
@@ -302,6 +327,10 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 |         |            | Train      |            | Test       |            |
 | ------- | ---------- | ---------- | ---------- | ---------- | ---------- |
 | Class   | Serial No. | Depression | No. Images | Depression | No. Images |
+| BMP-2   | 9563       | 17         | 233        | -          | -          |
+| BRDM-2  | E-71       | 17         | 298        | -          | -          |
+| BTR-70  | c71        | 17         | 233        | -          | -          |
+| T-72    | 132        | 17         | 232        | -          | -          |
 | BMP-2   | 9566       | -          | -          | 15, 17     | 428        |
 | BMP-2   | c21        | -          | -          | 15, 17     | 429        |
 | T-72    | 812        | -          | -          | 15, 17     | 426        |
@@ -354,6 +383,33 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 └ ...
 
 ```
+
+##### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [eoc-1-dataset.zip](#) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-vv 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-2-vv
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
+```
+
+##### Results of EOC-1
+- Final Accuracy is **96.64%** at epoch 88 (The official accuracy is 98.60%)
+- You can see the details in `notebook/experiments-EOC-T72-A64.ipynb`
+
+- Visualization of training loss and test accuracy
+
+![soc-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
+
+- Confusion Matrix with best model at **epoch 88**
+
+![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
+
 
 <!--
 ### Outlier Rejection

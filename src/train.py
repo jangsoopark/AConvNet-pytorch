@@ -50,7 +50,7 @@ def validation(m, ds):
     m.net.eval()
     _softmax = torch.nn.Softmax(dim=1)
     for i, data in enumerate(tqdm(ds)):
-        images, labels = data
+        images, labels, _ = data
 
         predictions = m.inference(images)
         predictions = _softmax(predictions)
@@ -94,7 +94,7 @@ def run(epochs, dataset, classes, channels, batch_size,
 
         m.net.train()
         for i, data in enumerate(tqdm(train_set)):
-            images, labels = data
+            images, labels, _ = data
             _loss.append(m.optimize(images, labels))
 
         if m.lr_scheduler:
