@@ -11,7 +11,7 @@ target_name_eoc_1 = ('2S1', 'BRDM2', 'T72', 'ZSU234')
 
 target_name_eoc_2 = ('BMP2', 'BRDM2', 'BTR70', 'T72')
 target_name_eoc_2_cv = ('T72-A32', 'T72-A62', 'T72-A63', 'T72-A64', 'T72-S7')
-target_name_eoc_2_vv = ('BMP2-9566', 'BMP2-C21', 'T72-812', 'T72-A04', 'T72-A05', 'T72-A07', 'T72-10')
+target_name_eoc_2_vv = ('BMP2-9566', 'BMP2-C21', 'T72-812', 'T72-A04', 'T72-A05', 'T72-A07', 'T72-A10')
 
 target_name = {
     'soc': target_name_soc,
