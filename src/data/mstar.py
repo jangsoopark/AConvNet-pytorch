@@ -8,9 +8,27 @@ import os
 
 target_name_soc = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
 target_name_eoc_1 = ('2S1', 'BRDM2', 'T72', 'ZSU234')
+
+target_name_eoc_2 = ('BMP2', 'BRDM2', 'BTR70', 'T72')
+target_name_eoc_2_cv = ('T72-A32', 'T72-A62', 'T72-A63', 'T72-A64', 'T72-S7')
+target_name_eoc_2_vv = ('BMP2-9566', 'BMP2-C21', 'T72-812', 'T72-A04', 'T72-A05', 'T72-A07', 'T72-10')
+
+target_name = {
+    'soc': target_name_soc,
+    'eoc-1': target_name_eoc_1,
+    'eoc-1-t72-132': target_name_eoc_1,
+    'eoc-1-t72-a64': target_name_eoc_1,
+    'eoc-2-cv': target_name_eoc_2 + target_name_eoc_2_cv,
+    'eoc-2-vv': target_name_eoc_2 + target_name_eoc_2_vv,
+}
+
 serial_number = {
     'b01': 0,
+
     '9563': 1,
+    '9566': 1,
+    'c21': 1,
+
     'E-71': 2,
     'k10yt7532': 3,
     'c71': 4,
@@ -18,6 +36,15 @@ serial_number = {
     'A51': 6,
 
     '132': 7,
+    '812': 7,
+    's7': 7,
+    'A04': 7,
+    'A05': 7,
+    'A07': 7,
+    'A10': 7,
+    'A32': 7,
+    'A62': 7,
+    'A63': 7,
     'A64': 7,
 
     'E12': 8,
@@ -107,6 +134,9 @@ class MSTAR(object):
         class_id = serial_number[sn]
         if 'eoc-1' in self.name:
             class_id = target_name_eoc_1.index(target_name_soc[class_id])
+
+        if 'eoc-2' in self.name:
+            class_id = target_name_eoc_2.index(target_name_soc[class_id])
 
         azimuth_angle = MSTAR._get_azimuth_angle(header['TargetAz'])
 

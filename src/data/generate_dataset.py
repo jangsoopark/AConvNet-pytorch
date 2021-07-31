@@ -73,7 +73,7 @@ def main(_):
             os.path.join(raw_root, mode, target),
             os.path.join(output_root, target),
             FLAGS.is_train, FLAGS.chip_size, FLAGS.patch_size, FLAGS.use_phase, FLAGS.dataset
-        ) for target in mstar.target_name_soc
+        ) for target in mstar.target_name[FLAGS.dataset]
     ]
 
     with Pool(10) as p:
