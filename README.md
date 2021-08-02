@@ -137,7 +137,7 @@ MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
 - Dataset Preparation
     - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
-    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+    - Place the two directories (`train` and  `test`) to the `dataset/soc/raw`.
 ```shell
 $ cd src/data 
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=soc 
@@ -221,13 +221,13 @@ MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
 - Dataset Preparation
     - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
-    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+    - Place the two directories (`train` and  `test`) to the `dataset/eoc-1-t72-a64/raw`.
 ```shell
 $ cd src/data 
-$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-1-t72-132 
-$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-1-t72-132
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-1-t72-a64 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=eoc-1-t72-a64
 $ cd ..
-$ python3 train.py --config_name=config/AConvNet-EOC-1-T72-132.json
+$ python3 train.py --config_name=config/AConvNet-EOC-1-T72-A64.json
 ```
 
 ##### Results of EOC-1
@@ -301,7 +301,7 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 - Dataset Preparation
     - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
-    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+    - Place the two directories (`train` and  `test`) to the `dataset/eoc-2-cv/raw`.
 ```shell
 $ cd src/data 
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-cv 
@@ -342,8 +342,7 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 
 ##### Training Set (Depression: 17$\degree$)
 ```shell
-
-asdf
+# BMP2, BRDM2, BTR70, T72 are selected from SOC training data
 ```
 
 ##### Test Set (Depression: 15$\degree$)
@@ -390,7 +389,7 @@ MSTAR-PublicT72Variants-CD1/MSTAR_PUBLIC_T_72_VARIANTS_CD1
 - Dataset Preparation
     - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
     - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
-    - Place the two directories (`train` and  `test`) to the `dataset/raw`.
+    - Place the two directories (`train` and  `test`) to the `dataset/eoc-2-vv/raw`.
 ```shell
 $ cd src/data 
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=eoc-2-vv 
@@ -412,9 +411,72 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 ![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
 
 
-<!--
+
 ### Outlier Rejection
 
+|         |            | Train      |            | Test       |            | Remarks.   |
+| ------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Class   | Serial No. | Depression | No. Images | Depression | No. Images | Type.      |
+| BMP-2   | 9563       | 17         | 233        | 15         | 196        | Known      |
+| BTR-70  | c71        | 17         | 233        | 15         | 196        | Known      |
+| T-72    | 132        | 17         | 232        | 15         | 196        | Known      |
+| 2S1     | b01        | 17         | -          | 15         | 274        | Confuser   |
+| ZSU-234 | d08        | 17         | -          | 15         | 274        | Confuser   |
+
+##### Training Set (Known targets in Depression: 17$\degree$)
+
+```shell
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TRAIN/17_DEG    # KNOWN
+│    ├ BMP2/SN_9563/*.000 (233 images)
+│    ├ BTR70/SN_C71/*.004 (233 images)
+│    └ T72/SN_132/*.015   (232 images)
+└ ...
+
+MSTAR-PublicMixedTargets-CD2/MSTAR_PUBLIC_MIXED_TARGETS_CD2
+├ 17_DEG                  # Confuser
+│    └ COL2/SCENE1
+│        ├ 2S1/*.000            (299 images)
+│        └ ZIL131/*.025         (299 images)
+└ ...
+
+```
+
+
+##### Test Set (Known targets and confuser targets in Depression: 15$\degree$)
+```shell
+MSTAR-PublicTargetChips-T72-BMP2-BTR70-SLICY/MSTAR_PUBLIC_TARGETS_CHIPS_T72_BMP2_BTR70_SLICY
+├ TARGETS/TEST/15_DEG     # KNOWN
+│    ├ BMP2/SN_9563/*.000 (195 images)
+│    ├ BTR70/SN_C71/*.004 (196 images)
+│    └ T72/SN_132/*.015   (196 images)
+└ ...
+
+MSTAR-PublicMixedTargets-CD1/MSTAR_PUBLIC_MIXED_TARGETS_CD1
+├ 15_DEG                  # Confuser
+│    └ COL2/SCENE1
+│        ├ 2S1/*.000            (274 images)
+│        └ ZIL131/*.025         (274 images)
+└ ...
+
+```
+
+##### Quick Start Guide for Training
+
+- Dataset Preparation
+    - Download the [dataset.zip](https://github.com/jangsoopark/AConvNet-pytorch/releases/download/v2.2.0/dataset.zip) 
+    - After extracting it, you can find `train` and  `test` directories inside `raw` directory.
+    - Place the two directories (`train` and  `test`) to the `dataset/confuser-rejection/raw`.
+
+```shell
+$ cd src/data 
+$ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=confuser-rejection 
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=confuser-rejection
+$ cd ..
+$ python3 train.py --config_name=config/AConvNet-CR.json
+```
+
+<!--
 ### End-to-End SAR-ATR Cases
 -->
 ## Details about the specific environment of this repository
