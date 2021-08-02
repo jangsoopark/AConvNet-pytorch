@@ -310,7 +310,7 @@ $ cd ..
 $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 ```
 
-##### Results of EOC-1
+##### Results of EOC-2 Configuration Variants
 - Final Accuracy is **99.41%** at epoch 95 (The official accuracy is 98.93%)
 - You can see the details in `notebook/experiments-EOC-2-CV.ipynb`
 
@@ -398,7 +398,7 @@ $ cd ..
 $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 ```
 
-##### Results of EOC-1
+##### Results of EOC-2 Version Variants
 - Final Accuracy is **97.17%** at epoch 88 (The official accuracy is 98.60%)
 - You can see the details in `notebook/experiments-EOC-2-VV.ipynb`
 
@@ -475,6 +475,22 @@ $ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 
 $ cd ..
 $ python3 train.py --config_name=config/AConvNet-CR.json
 ```
+
+
+##### Results of EOC-2 Version Variants
+- Final Accuracy is **97.17%** at epoch 88 (The official accuracy is 98.60%)
+- You can see the details in `notebook/experiments-EOC-2-VV.ipynb`
+
+- Visualization of training loss and test accuracy
+  - TODO
+<!--
+![soc-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
+-->
+- Confusion Matrix with best model at **epoch 88**
+  - TODO
+<!--
+![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
+-->
 
 <!--
 ### End-to-End SAR-ATR Cases
