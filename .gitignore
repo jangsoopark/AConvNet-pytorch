@@ -295,6 +295,11 @@ dataset/eoc-2*/raw/test/
 dataset/eoc-2*/train/
 dataset/eoc-2*/test/
 
+dataset/confuser-rejection/raw/train/
+dataset/confuser-rejection/raw/test/
+dataset/confuser-rejection/train/
+dataset/confuser-rejection/test/
+
 experiments/history
 
 *.pth
