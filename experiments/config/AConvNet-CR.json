@@ -1,7 +1,7 @@
 {
   "model_name": "AConvNet-CR",
   "dataset": "confuser-rejection",
-  "num_classes": 4,
+  "num_classes": 3,
   "channels": 2,
   "batch_size": 100,
   "epochs": 100,
