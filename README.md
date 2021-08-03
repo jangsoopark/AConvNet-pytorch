@@ -236,11 +236,11 @@ $ python3 train.py --config_name=config/AConvNet-EOC-1-T72-A64.json
 
 - Visualization of training loss and test accuracy
 
-![soc-training-plot](./assets/figure/eoc-1-training-plot.png)
+![eoc-1-training-plot](./assets/figure/eoc-1-training-plot.png)
 
 - Confusion Matrix with best model at **epoch 28**
 
-![soc-confusion-matrix](./assets/figure/eoc-1-confusion-matrix.png)
+![eoc-1-confusion-matrix](./assets/figure/eoc-1-confusion-matrix.png)
 
 
 #### EOC-2 (Target configuration variants)
@@ -316,11 +316,11 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 
 - Visualization of training loss and test accuracy
 
-![soc-training-plot](./assets/figure/eoc-2-cv-training-plot.png)
+![eoc-2-cv-training-plot](./assets/figure/eoc-2-cv-training-plot.png)
 
 - Confusion Matrix with best model at **epoch 95**
 
-![soc-confusion-matrix](./assets/figure/eoc-2-cv-confusion-matrix.png)
+![eoc-2-cv-confusion-matrix](./assets/figure/eoc-2-cv-confusion-matrix.png)
 
 
 #### EOC-2 (Target version variants)
@@ -404,11 +404,11 @@ $ python3 train.py --config_name=config/AConvNet-EOC-2-CV.json
 
 - Visualization of training loss and test accuracy
 
-![soc-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
+![eoc-2-vv-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
 
 - Confusion Matrix with best model at **epoch 88**
 
-![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
+![eoc-2-vv-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
 
 
 
@@ -473,24 +473,51 @@ $ cd src/data
 $ python3 generate_dataset.py --is_train=True --use_phase=True --chip_size=100 --patch_size=94 --use_phase=True --dataset=confuser-rejection 
 $ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=confuser-rejection
 $ cd ..
+$ 
+$ # Remove Confuser objects when training to check validation accuracy with known targets
+$ cd ../dataset/confuser-rejection/test
+$ rm -rf 2S1
+$ rm -rf ZIL131
+$ cd -
+$
 $ python3 train.py --config_name=config/AConvNet-CR.json
+$
+$ # Restore the unknown targets 
+$ cd ../dataset/confuser-rejection/
+$ rm -rf test
+$ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 --patch_size=128  --use_phase=True --dataset=confuser-rejection
 ```
 
 
-##### Results of EOC-2 Version Variants
-- Final Accuracy is **97.17%** at epoch 88 (The official accuracy is 98.60%)
-- You can see the details in `notebook/experiments-EOC-2-VV.ipynb`
+##### Results of Outlier Rejection
+- Final Accuracy for known targets is **98.81%** at epoch 39
+- You can see the details in `notebook/experiments-CR.ipynb`
 
 - Visualization of training loss and test accuracy
   - TODO
-<!--
-![soc-training-plot](./assets/figure/eoc-2-vv-training-plot.png)
--->
+
+![cr-training-plot](./assets/figure/cr-training-plot.png)
+
 - Confusion Matrix with best model at **epoch 88**
   - TODO
-<!--
-![soc-confusion-matrix](./assets/figure/eoc-2-vv-confusion-matrix.png)
--->
+
+![cr-confusion-matrix](./assets/figure/cr-confusion-matrix.png)
+
+
+- Outlier Rejection
+```python
+# Rules
+output_probability = model(image)
+is_confuser = output_probability < thresh
+
+if sum(is_confuser) == 3:
+    target is confuser
+else:
+    target is known
+
+```
+
+![cr-roc](./assets/figure/cr-roc.png)
 
 <!--
 ### End-to-End SAR-ATR Cases
