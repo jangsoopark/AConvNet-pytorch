@@ -494,17 +494,15 @@ $ python3 generate_dataset.py --is_train=False --use_phase=True --chip_size=128 
 - You can see the details in `notebook/experiments-CR.ipynb`
 
 - Visualization of training loss and test accuracy
-  - TODO
-
+  
 ![cr-training-plot](./assets/figure/cr-training-plot.png)
 
 - Confusion Matrix with best model at **epoch 88**
-  - TODO
-
+  
 ![cr-confusion-matrix](./assets/figure/cr-confusion-matrix.png)
 
 
-- Outlier Rejection
+- Outlier Rejection: TODO: LOoking for more details..
 ```python
 # Rules
 output_probability = model(image)
