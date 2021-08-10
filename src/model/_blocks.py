@@ -36,7 +36,7 @@ class DenseBlock(BaseBlock):
         w_init = params.get('w_init', None)
         idx = list(dict(self._layer.named_children()).keys()).index('dense')
         if w_init:
-            w_init(self._layer[idx].weight, nonlinearity='linear' if not _act_name else _act_name)
+            w_init(self._layer[idx].weight)
         b_init = params.get('b_init', None)
         if b_init:
             b_init(self._layer[idx].bias)
