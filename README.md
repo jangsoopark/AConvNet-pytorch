@@ -531,7 +531,17 @@ MSTAR-PublicClutter-CD2/MSTAR_PUBLIC_CLUTTER_CD2
 │    └ * (50 images)
 └ ...
 ```
+### Network Architecture for Target Detection 
 
+- Input Size: 70 X 70 or 64 x 64 (I Don't Know)
+
+|    layer    | Input  |   Conv 1   |   Conv 2   |   Conv 3   |   Conv 4  | 
+| :---------: | ------ | :--------: | :--------: | :--------: | :-------: | 
+|  channels   | 2      |     32     |     32     |     32     |     2     | 
+| weight size | -      |   5 x 5    |   5 x 5    |   6 x 6    |   4 x 4   | 
+|   pooling   | -      | 2 x 2 - s2 | 2 x 2 - s2 | 2 x 2 - s2 |     -     | 
+|   dropout   | -      |     -      |     -      |     -      |     -     | 
+| activation  | linear |    ReLU    |    ReLU    |    ReLU    |  Softmax  | 
 
 
 ## Details about the specific environment of this repository
