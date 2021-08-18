@@ -1,5 +1,6 @@
 {
   "model_name": "AConvNet-EOC-2-VV",
+  "mode": "classification",
   "dataset": "eoc-2-vv",
   "num_classes": 4,
   "channels": 2,

@@ -1,5 +1,6 @@
 {
   "model_name": "AConvNet-SOC",
+  "mode": "classification",
   "dataset": "soc",
   "num_classes": 10,
   "channels": 2,
