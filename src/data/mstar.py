@@ -152,7 +152,6 @@ class MSTAR(object):
 
         class_id = serial_number[sn]
         if not self.name == 'soc':
-            print(class_id)
             class_id = target_name[self.name].index(target_name_soc[class_id])
 
         azimuth_angle = MSTAR._get_azimuth_angle(header.get('TargetAz', '-1'))
