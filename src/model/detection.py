@@ -1,8 +1,7 @@
 import torch.nn as nn
 import torch
 
-# from . import _blocks
-import _blocks
+from . import _blocks
 
 
 class Network(nn.Module):

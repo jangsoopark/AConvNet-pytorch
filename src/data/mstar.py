@@ -60,10 +60,11 @@ serial_number = {
 
 class MSTAR(object):
 
-    def __init__(self, name='soc', is_train=False, use_phase=False, chip_size=94, patch_size=88, stride=40):
+    def __init__(self, name='soc', is_train=False, use_phase=False, crop=False, chip_size=94, patch_size=88, stride=40):
         self.name = name
         self.is_train = is_train
         self.use_phase = use_phase
+        self.crop = crop
         self.chip_size = chip_size
         self.patch_size = patch_size
         self.stride = stride
@@ -93,7 +94,7 @@ class MSTAR(object):
         if not self.use_phase:
             _data = np.expand_dims(_data[:, :, 0], axis=2)
 
-        if 'e2e' in self.name:
+        if 'e2e' in self.name and not self.crop:
             _data = [_data * scale_factor]
             return meta_label, _data
 
