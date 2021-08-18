@@ -519,6 +519,18 @@ else:
 
 
 ### End-to-End SAR-ATR Cases
+```shell
+# Clutter images that does not contain targets.
+MSTAR-PublicClutter-CD1/MSTAR_PUBLIC_CLUTTER_CD1
+├ CLUTTER/15_DEG
+│    └ * (50 images)
+└ ...
+
+MSTAR-PublicClutter-CD2/MSTAR_PUBLIC_CLUTTER_CD2
+├ CLUTTER/15_DEG
+│    └ * (50 images)
+└ ...
+```
 
 
 

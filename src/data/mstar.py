@@ -6,7 +6,7 @@ import tqdm
 import glob
 import os
 
-target_name_soc = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
+target_name_soc = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234', 'C')
 target_name_eoc_1 = ('2S1', 'BRDM2', 'T72', 'ZSU234')
 
 target_name_eoc_2 = ('BMP2', 'BRDM2', 'BTR70', 'T72')
@@ -14,6 +14,7 @@ target_name_eoc_2_cv = ('T72-A32', 'T72-A62', 'T72-A63', 'T72-A64', 'T72-S7')
 target_name_eoc_2_vv = ('BMP2-9566', 'BMP2-C21', 'T72-812', 'T72-A04', 'T72-A05', 'T72-A07', 'T72-A10')
 
 target_name_confuser_rejection = ('BMP2', 'BTR70', 'T72', '2S1', 'ZIL131')
+target_name_end_to_end_sar_atr = ('C', 'T')  # Clutter, Target
 
 target_name = {
     'soc': target_name_soc,
@@ -22,7 +23,8 @@ target_name = {
     'eoc-1-t72-a64': target_name_eoc_1,
     'eoc-2-cv': target_name_eoc_2 + target_name_eoc_2_cv,
     'eoc-2-vv': target_name_eoc_2 + target_name_eoc_2_vv,
-    'confuser-rejection': target_name_confuser_rejection
+    'confuser-rejection': target_name_confuser_rejection,
+    'e2e-sar-atr': target_name_end_to_end_sar_atr
 }
 
 serial_number = {
@@ -51,7 +53,8 @@ serial_number = {
     'A64': 7,
 
     'E12': 8,
-    'd08': 9
+    'd08': 9,
+    'CLUTTER': 10  # for clutter
 }
 
 
@@ -68,17 +71,31 @@ class MSTAR(object):
     def read(self, path):
         f = open(path, 'rb')
         _header = self._parse_header(f)
-        _data = np.fromfile(f, dtype='>f4')
+
+        scale_factor = None
+        if 'e2e' in self.name:
+            scale_factor = eval(_header['SensorCalibrationFactor']) / 65535
+            np.fromfile(f, count=64)
+            _data = np.fromfile(f, dtype='>u2')
+        else:
+            _data = np.fromfile(f, dtype='>f4')
+
         f.close()
 
         h = eval(_header['NumberOfRows'])
         w = eval(_header['NumberOfColumns'])
+        meta_label = self._extract_meta_label(_header)
 
         _data = _data.reshape(-1, h, w)
         _data = _data.transpose(1, 2, 0)
         _data = _data.astype(np.float32)
+
         if not self.use_phase:
             _data = np.expand_dims(_data[:, :, 0], axis=2)
+
+        if 'e2e' in self.name:
+            _data = [_data * scale_factor]
+            return meta_label, _data
 
         # _data = self._normalize(_data)
         _data = self._center_crop(_data)
@@ -88,7 +105,6 @@ class MSTAR(object):
         else:
             _data = [self._center_crop(_data, size=self.patch_size)]
 
-        meta_label = self._extract_meta_label(_header)
         return meta_label, _data
 
     @staticmethod
@@ -131,14 +147,15 @@ class MSTAR(object):
 
     def _extract_meta_label(self, header):
 
-        target_type = header['TargetType']
-        sn = header['TargetSerNum']
+        target_type = header.get('TargetType', 'CLUTTER')
+        sn = header.get('TargetSerNum', 'CLUTTER')
 
         class_id = serial_number[sn]
         if not self.name == 'soc':
+            print(class_id)
             class_id = target_name[self.name].index(target_name_soc[class_id])
 
-        azimuth_angle = MSTAR._get_azimuth_angle(header['TargetAz'])
+        azimuth_angle = MSTAR._get_azimuth_angle(header.get('TargetAz', '-1'))
 
         return {
             'class_id': class_id,
