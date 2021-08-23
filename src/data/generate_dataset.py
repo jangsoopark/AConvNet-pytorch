@@ -24,15 +24,6 @@ FLAGS = flags.FLAGS
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-def data_scaling(chip):
-    r = chip.max() - chip.min()
-    return (chip - chip.min()) / r
-
-
-def log_scale(chip):
-    return np.log10(np.abs(chip) + 1)
-
-
 def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dataset):
     if not os.path.exists(src_path):
         return
@@ -53,9 +44,7 @@ def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dat
             with open(os.path.join(dst_path, f'{name}-{i}.json'), mode='w', encoding='utf-8') as f:
                 json.dump(label, f, ensure_ascii=False, indent=2)
 
-            # _image = log_scale(_image)
             np.save(os.path.join(dst_path, f'{name}-{i}.npy'), _image)
-            # Image.fromarray(data_scaling(_image)).convert('L').save(os.path.join(dst_path, f'{name}-{i}.bmp'))
 
 
 def main(_):
