@@ -517,9 +517,33 @@ else:
 
 ![cr-roc](./assets/figure/cr-roc.png)
 
-<!--
+
 ### End-to-End SAR-ATR Cases
--->
+
+```shell
+# Clutter images that does not contain targets.
+MSTAR-PublicClutter-CD1/MSTAR_PUBLIC_CLUTTER_CD1
+├ CLUTTER/15_DEG
+│    └ * (50 images)
+└ ...
+
+MSTAR-PublicClutter-CD2/MSTAR_PUBLIC_CLUTTER_CD2
+├ CLUTTER/15_DEG
+│    └ * (50 images)
+└ ...
+```
+### Network Architecture for Target Detection 
+
+- Input Size: 70 X 70 or 64 x 64 (I Don't Know)
+
+|    layer    | Input  |   Conv 1   |   Conv 2   |   Conv 3   |   Conv 4  | 
+| :---------: | ------ | :--------: | :--------: | :--------: | :-------: | 
+|  channels   | 2      |     32     |     32     |     32     |     2     | 
+| weight size | -      |   5 x 5    |   5 x 5    |   6 x 6    |   4 x 4   | 
+|   pooling   | -      | 2 x 2 - s2 | 2 x 2 - s2 | 2 x 2 - s2 |     -     | 
+|   dropout   | -      |     -      |     -      |     -      |     -     | 
+| activation  | linear |    ReLU    |    ReLU    |    ReLU    |  Softmax  | 
+
 ## Details about the specific environment of this repository
 
 | | |
@@ -560,12 +584,12 @@ else:
     - [ ] Data generation
         - [X] SOC
         - [X] EOC
-        - [ ] Outlier Rejection
+        - [X] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [ ] Data Loader
         - [X] SOC
         - [X] EOC
-        - [ ] Outlier Rejection
+        - [X] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [X] Model
         - [X] Network
@@ -575,6 +599,6 @@ else:
     - [ ] Experiments
         - [X] Reproduce the SOC Results
         - [X] Reproduce the EOC Results
-        - [ ] Reproduce the outlier rejection
+        - [X] Reproduce the outlier rejection
         - [ ] Reproduce the end-to-end SAR-ATR
 

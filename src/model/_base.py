@@ -1,12 +1,19 @@
 import torch
 
-import model.network
+import model.classification as classification
+import model.detection as detection
+
+network = {
+    'classification': classification,
+    'detection': detection
+}
 
 
 class Model(object):
     def __init__(self, **params):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.net = model.network.Network(
+        self.mode = params.get('mode', 'classification')
+        self.net = network[self.mode].Network(
             classes=params.get('classes', 10),
             channels=params.get('channels', 1),
             dropout_rate=params.get('dropout_rate', 0.5)

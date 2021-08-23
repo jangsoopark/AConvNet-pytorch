@@ -1,5 +1,6 @@
 {
   "model_name": "AConvNet-CR",
+  "mode": "classification",
   "dataset": "confuser-rejection",
   "num_classes": 3,
   "channels": 2,

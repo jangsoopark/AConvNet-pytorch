@@ -1,10 +1,6 @@
 from skimage.util import shape
 
 import numpy as np
-import tqdm
-
-import glob
-import os
 
 target_name_soc = ('2S1', 'BMP2', 'BRDM2', 'BTR60', 'BTR70', 'D7', 'T62', 'T72', 'ZIL131', 'ZSU234')
 target_name_eoc_1 = ('2S1', 'BRDM2', 'T72', 'ZSU234')

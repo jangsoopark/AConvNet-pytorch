@@ -64,14 +64,14 @@ def validation(m, ds):
     return accuracy
 
 
-def run(epochs, dataset, classes, channels, batch_size,
+def run(epochs, mode, dataset, classes, channels, batch_size,
         lr, lr_step, lr_decay, weight_decay, dropout_rate,
         model_name, experiments_path=None):
     train_set = load_dataset('dataset', True, dataset, batch_size)
     valid_set = load_dataset('dataset', False, dataset, batch_size)
 
     m = model.Model(
-        classes=classes, dropout_rate=dropout_rate, channels=channels,
+        mode=mode, classes=classes, dropout_rate=dropout_rate, channels=channels,
         lr=lr, lr_step=lr_step, lr_decay=lr_decay,
         weight_decay=weight_decay
     )
@@ -124,6 +124,7 @@ def main(_):
 
     config = common.load_config(os.path.join(experiments_path, config_name))
 
+    mode = config['mode']
     dataset = config['dataset']
     classes = config['num_classes']
     channels = config['channels']
@@ -139,7 +140,7 @@ def main(_):
 
     model_name = config['model_name']
 
-    run(epochs, dataset, classes, channels, batch_size,
+    run(epochs, mode, dataset, classes, channels, batch_size,
         lr, lr_step, lr_decay, weight_decay, dropout_rate,
         model_name, experiments_path)
 

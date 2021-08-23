@@ -300,10 +300,13 @@ dataset/confuser-rejection/raw/test/
 dataset/confuser-rejection/train/
 dataset/confuser-rejection/test/
 
+dataset/e2e-sar-atr/raw/
+dataset/e2e-sar-atr/train/
+dataset/e2e-sar-atr/test/
+
 experiments/history
 
 *.pth
 *.zip
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,pycharm+all,python
-
 
