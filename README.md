@@ -560,12 +560,12 @@ else:
     - [ ] Data generation
         - [X] SOC
         - [X] EOC
-        - [ ] Outlier Rejection
+        - [X] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [ ] Data Loader
         - [X] SOC
         - [X] EOC
-        - [ ] Outlier Rejection
+        - [X] Outlier Rejection
         - [ ] End-to-End SAR-ATR
     - [X] Model
         - [X] Network
@@ -575,6 +575,6 @@ else:
     - [ ] Experiments
         - [X] Reproduce the SOC Results
         - [X] Reproduce the EOC Results
-        - [ ] Reproduce the outlier rejection
+        - [X] Reproduce the outlier rejection
         - [ ] Reproduce the end-to-end SAR-ATR
 
