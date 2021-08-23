@@ -3,14 +3,14 @@ from absl import flags
 from absl import app
 
 from multiprocessing import Pool
-from PIL import Image
+
 import numpy as np
 
 import json
 import glob
 import os
 
-import mstar
+import mstar.target
 
 flags.DEFINE_string('image_root', default='dataset', help='')
 flags.DEFINE_string('dataset', default='soc', help='')
@@ -40,7 +40,7 @@ def generate(src_path, dst_path, is_train, chip_size, patch_size, use_phase, dat
         os.makedirs(dst_path, exist_ok=True)
     print(f'Target Name: {os.path.basename(dst_path)}')
 
-    _mstar = mstar.MSTAR(
+    _mstar = mstar.target.MSTAR(
         name=dataset, is_train=is_train, chip_size=chip_size, patch_size=patch_size, use_phase=use_phase, stride=1
     )
 
@@ -73,7 +73,7 @@ def main(_):
             os.path.join(raw_root, mode, target),
             os.path.join(output_root, target),
             FLAGS.is_train, FLAGS.chip_size, FLAGS.patch_size, FLAGS.use_phase, FLAGS.dataset
-        ) for target in mstar.target_name[FLAGS.dataset]
+        ) for target in mstar.target.target_name[FLAGS.dataset]
     ]
 
     with Pool(10) as p:
