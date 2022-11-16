@@ -1,5 +1,5 @@
 scikit-image==0.18.2
-numpy==1.21.1
+numpy==1.22.0
 absl-py
 torch==1.9.0+cu111
 tqdm==4.61.2
